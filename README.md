@@ -153,8 +153,7 @@ Every neighborhood can become a N.O.D.E. The protocol is jurisdiction-agnostic, 
 
 **Holonet Portal:** `node-protocol.io`  
 **Communications Channel:** [Join our Discord]  
-**Live Broadcasts:** `@NODELive`  
-**Open Source Repository:** `github.com/node-protocol`  
+**Open Source Repository:** `[github.com/node-protocol](https://github.com/chandan989/N.O.D.E.)`  
 **Whitepaper:** `docs.node-protocol.io`
 
 ---
