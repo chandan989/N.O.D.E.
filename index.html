@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.O.D.E. PROTOCOL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'VT323', monospace;
+            background-color: #000000;
+            color: #33ff33;
+            text-shadow: 0 0 3px #33ff33;
+            overflow-x: hidden;
+            /* Disabling tailwind base styles to prevent conflicts with retro theme */
+            --tw-text-opacity: 1 !important;
+        }
+
+         /*CRT Scanline and flicker effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .text-glow {
+            color: #33ff33;
+            text-shadow: 0 0 2px #33ff33, 0 0 5px #33ff33, 0 0 10px #33ff33;
+        }
+
+        .ascii-logo {
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre;
+            line-height: 1.2;
+        }
+
+        .window-panel {
+            border: 2px solid #33ff33;
+            padding: 1.5rem;
+            background: repeating-linear-gradient(
+                -45deg,
+                #000000,
+                #000000 10px,
+                #050505 10px,
+                #050505 20px
+            );
+        }
+
+        .window-panel-title {
+            background-color: #33ff33;
+            color: #000000;
+            padding: 0.25rem 0.5rem;
+            display: inline-block;
+            text-shadow: none;
+            margin-top: -2.75rem;
+            margin-left: -0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .log-item::before {
+            content: 'C:\\>_';
+            animation: blink 1s step-end infinite;
+        }
+
+        .btn-retro {
+            background: #22aa22;
+            color: #000000;
+            text-shadow: none;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            box-shadow: 4px 4px 0px #118811;
+            transition: all 0.1s ease-in;
+            text-transform: uppercase;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-retro:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #118811;
+        }
+
+        .btn-retro:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px #118811;
+        }
+
+        .section-divider {
+            color: #33ff33;
+            text-align: center;
+            font-size: 1.25rem;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .blinking-cursor {
+             animation: blink 1s step-end infinite;
+        }
+    </style>
+</head>
+<body class="bg-black text-green-400">
+
+    <div class="container mx-auto px-6 py-8 text-xl">
+
+        <!-- Header Section -->
+        <header class="text-center py-16 md:py-24">
+            <div class="window-panel max-w-5xl mx-auto">
+                <div class="window-panel-title">INIT.EXE</div>
+                <pre class="ascii-logo text-glow text-center text-xs mb-8">
+          _____                   _______                   _____                    _____          
+         /\    \                 /::\    \                 /\    \                  /\    \         
+        /::\____\               /::::\    \               /::\    \                /::\    \        
+       /::::|   |              /::::::\    \             /::::\    \              /::::\    \       
+      /:::::|   |             /::::::::\    \           /::::::\    \            /::::::\    \      
+     /::::::|   |            /:::/~~\:::\    \         /:::/\:::\    \          /:::/\:::\    \     
+    /:::/|::|   |           /:::/    \:::\    \       /:::/  \:::\    \        /:::/__\:::\    \    
+   /:::/ |::|   |          /:::/    / \:::\    \     /:::/    \:::\    \      /::::\   \:::\    \   
+  /:::/  |::|   | _____   /:::/____/   \:::\____\   /:::/    / \:::\    \    /::::::\   \:::\    \  
+ /:::/   |::|   |/\    \ |:::|    |     |:::|    | /:::/    /   \:::\ ___\  /:::/\:::\   \:::\    \ 
+/:: /    |::|   /::\____\|:::|____|     |:::|    |/:::/____/     \:::|    |/:::/__\:::\   \:::\____\
+\::/    /|::|  /:::/    / \:::\    \   /:::/    / \:::\    \     /:::|____|\:::\   \:::\   \::/    /
+ \/____/ |::| /:::/    /   \:::\    \ /:::/    /   \:::\    \   /:::/    /  \:::\   \:::\   \/____/ 
+         |::|/:::/    /     \:::\    /:::/    /     \:::\    \ /:::/    /    \:::\   \:::\    \     
+         |::::::/    /       \:::\__/:::/    /       \:::\    /:::/    /      \:::\   \:::\____\    
+         |:::::/    /         \::::::::/    /         \:::\  /:::/    /        \:::\   \::/    /    
+         |::::/    /           \::::::/    /           \:::\/:::/    /          \:::\   \/____/     
+         /:::/    /             \::::/    /             \::::::/    /            \:::\    \         
+        /:::/    /               \::/____/               \::::/    /              \:::\____\        
+        \::/    /                 ~~                      \::/____/                \::/    /        
+         \/____/                                           ~~                       \/____/         
+                                                                                                    
+                </pre>
+                <h1 class="text-5xl md:text-7xl uppercase text-glow mb-4">
+                    N.O.D.E. PROTOCOL<span class="blinking-cursor">█</span>
+                </h1>
+                <p class="text-xl md:text-2xl mt-2">
+                    Neighborhood Operated Decentralized Economy
+                </p>
+                <p class="mt-6 text-lg md:text-xl">
+                    "The Neighborhood is the Network. The Network is the Future."
+                </p>
+                <div class="mt-8 text-base md:text-lg">
+                    &gt; TRANSMISSION STATUS: DECRYPTED // CONNECTION ESTABLISHED
+                </div>
+            </div>
+        </header>
+
+        <div class="section-divider py-12">
+            <pre>==================================================================</pre>
+        </div>
+
+
+        <!-- System Directive Section -->
+        <section id="directive" class="max-w-4xl mx-auto text-left py-12">
+            <h2 class="text-4xl uppercase text-glow mb-6">&gt; SYSTEM_DIRECTIVE.EXE</h2>
+            <p class="leading-relaxed">
+                INITIATING BOOT SEQUENCE... OK.
+            </p>
+             <p class="leading-relaxed mt-2">
+                For too long, the economic lifeblood of our communities has been drained by centralized megacorps. The promise of a connected world delivered only extraction and control.
+            </p>
+            <p class="leading-relaxed mt-4 font-bold">
+                N.O.D.E. severs those chains. It is a living economic organism for self-sovereign communities, built on the quantum-efficient Hedera Hashgraph.
+            </p>
+             <p class="leading-relaxed mt-4">
+                EXECUTION COMPLETE.
+            </p>
+        </section>
+
+        <div class="section-divider py-12">
+           <pre>==================================================================</pre>
+        </div>
+
+        <!-- Core Protocols Section -->
+        <section id="protocols" class="py-12">
+            <h2 class="text-4xl uppercase text-glow mb-12 text-center">&gt; DIR /CORE_PROTOCOLS</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Protocol 1 -->
+                <div class="window-panel">
+                    <div class="window-panel-title">PAYMENTS.DLL</div>
+                    <h3 class="text-2xl mb-2">GHOST PAYMENTS</h3>
+                    <p>Value transfer at the speed of thought. Instant, direct, and virtually cost-free transactions that keep value circulating locally.</p>
+                </div>
+                <!-- Protocol 2 -->
+                <div class="window-panel">
+                    <div class="window-panel-title">ASSETS.SYS</div>
+                    <h3 class="text-2xl mb-2">COLLECTIVE ASSETS</h3>
+                    <p>From scarcity to shared abundance. Tokenize real-world assets, fractionalize ownership, and democratize access to capital goods.</p>
+                </div>
+                <!-- Protocol 3 -->
+                <div class="window-panel">
+                    <div class="window-panel-title">VAULT.BAT</div>
+                    <h3 class="text-2xl mb-2">AUTONOMOUS VAULT</h3>
+                    <p>The community becomes the bank. Community-powered liquidity pools offering fair yields and accessible capital for entrepreneurs.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider py-12">
+            <pre>==================================================================</pre>
+        </div>
+
+        <!-- Neural Architecture Section -->
+        <section id="architecture" class="py-12">
+            <h2 class="text-4xl uppercase text-glow mb-12 text-center">&gt; VIEW ARCHITECTURE.TXT</h2>
+            <div class="max-w-4xl mx-auto text-center">
+                <pre class="ascii-logo text-sm md:text-base lg:text-lg text-glow mb-8 inline-block" style="line-height: 1.4; text-align: left;">
+                    ┌─────────────────────┐
+                    │   SOCIAL FABRIC     │ (Interface Layer)
+                    │   (User Agents)     │
+                    └─────────┬───────────┘
+                              │
+                    ┌─────────▼───────────┐
+                    │    N.O.D.E. CORE   │ (Logic Daemons)
+                    │  (Smart Contracts) │
+                    └─────────┬───────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        │                     │                     │
+┌───────▼──────────┐ ┌────────▼────────┐ ┌─────────▼─────────┐
+│  HCS PAYMENT     │ │ HTS ASSET ENGINE│ │ AUTONOMOUS VAULT  │
+│   PROTOCOL       │ │ (Tokenization)  │ │ (Lending Protocol)│
+└──────────────────┘ └─────────────────┘ └───────────────────┘
+        │                     │                     │
+        └─────────────────────▼─────────────────────┘
+                    ┌─────────────────────┐
+                    │  HEDERA HASHGRAPH   │ (Consensus Layer)
+                    │   (Trust Network)   │
+                    └─────────────────────┘
+                </pre>
+            </div>
+        </section>
+
+        <div class="section-divider py-12">
+            <pre>==================================================================</pre>
+        </div>
+
+        <!-- Activation Sequence -->
+        <section id="roadmap" class="py-12">
+             <h2 class="text-4xl uppercase text-glow mb-12 text-center">&gt; READ ROADMAP.LOG</h2>
+             <div class="max-w-3xl mx-auto space-y-8">
+                <!-- Phase 1 -->
+                <div class="log-item">
+                    <h3 class="text-2xl">PHASE 1: GENESIS (Q4 2025) - COMPLETE</h3>
+                    <p class="mt-2 text-lg">Core contracts deployed. Wallet integrated. First nodes onboarded.</p>
+                </div>
+                <!-- Phase 2 -->
+                <div class="log-item">
+                    <h3 class="text-2xl">PHASE 2: SYMBIOSIS (Q1-Q2 2026)</h3>
+                    <p class="mt-2 text-lg">N.O.D.E. Vault launch. Adaptive lending active. First CAO live.</p>
+                </div>
+                 <!-- Phase 3 -->
+                <div class="log-item">
+                    <h3 class="text-2xl">PHASE 3: EXPANSION (Q3-Q4 2026)</h3>
+                    <p class="mt-2 text-lg">Network expansion. Cross-neighborhood transfer. DAO transition.</p>
+                </div>
+                 <!-- Phase 4 -->
+                 <div class="log-item">
+                    <h3 class="text-2xl">PHASE 4: EMERGENCE (2027+)</h3>
+                    <p class="mt-2 text-lg">Autonomous inter-N.O.D.E. trade. AI optimization. Global federation.</p>
+                </div>
+             </div>
+        </section>
+
+        <div class="section-divider py-12">
+            <pre>==================================================================</pre>
+        </div>
+
+        <!-- Call to Action -->
+        <section id="join" class="text-center py-12">
+            <h2 class="text-4xl uppercase text-glow mb-6">&gt; JOIN.EXE</h2>
+            <p class="max-w-2xl mx-auto mb-10">This is not a company. This is a movement. We summon the architects of tomorrow, the digital artisans, the decentralized dreamers.</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                <a href="#" class="btn-retro">[ WHITELIST ]</a>
+                <a href="https://github.com/chandan989/N.O.D.E." target="_blank" class="btn-retro">[ VIEW SOURCE ]</a>
+                <a href="#" class="btn-retro">[ REGISTER NODE ]</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 mt-12 border-t-2 border-green-400">
+        <p class="mb-4 text-xl">&gt; Powered by Hedera Hashgraph</p>
+        <div class="flex justify-center space-x-6 text-xl">
+            <a href="#" class="hover:bg-green-400 hover:text-black">Discord</a>
+            <a href="https://github.com/chandan989/N.O.D.E." target="_blank" class="hover:bg-green-400 hover:text-black">GitHub</a>
+            <a href="#" class="hover:bg-green-400 hover:text-black">Whitepaper</a>
+        </div>
+         <p class="text-base text-gray-500 mt-6">&gt; Forged by the collective. Owned by the community.</p>
+    </footer>
+
+    <script>
+        // No JS needed for the core retro theme.
+        // The blinking cursor and flicker effects are handled by CSS.
+    </script>
+</body>
+</html>
