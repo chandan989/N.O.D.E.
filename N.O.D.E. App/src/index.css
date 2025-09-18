@@ -1,0 +1,281 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Source+Code+Pro:wght@300;400;500;600;700&display=swap');
+
+/* N.O.D.E. Protocol - Retro Terminal Design System
+All colors MUST be HSL. Terminal green theme with cyberpunk accents.
+*/
+
+@layer base {
+  :root {
+    /* Terminal Background Colors */
+    --background: 0 0% 0%; /* Black background from mockup */
+    --foreground: 120 100% 50%;
+
+    /* Terminal Card Colors */
+    --card: 0 0% 8%;
+    --card-foreground: 120 100% 50%;
+
+    /* Popover Colors */
+    --popover: 0 0% 8%;
+    --popover-foreground: 120 100% 50%;
+
+    /* Primary Terminal Green */
+    --primary: 120 100% 50%;
+    --primary-foreground: 0 0% 5%;
+    --primary-glow: 120 100% 60%;
+    --glow-color: hsl(var(--primary));
+
+    /* Secondary Terminal Colors */
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 120 100% 50%;
+
+    /* Muted Terminal Colors */
+    --muted: 0 0% 12%;
+    --muted-foreground: 120 50% 40%;
+
+    /* Accent Colors */
+    --accent: 180 100% 50%;
+    --accent-foreground: 0 0% 5%;
+
+    /* Warning/Error Colors */
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border and Input Colors */
+    --border: 120 50% 30%;
+    --input: 0 0% 12%;
+    --ring: 120 100% 50%;
+
+    /* Terminal Window Styling */
+    --window-border: 120 100% 40%;
+    --window-header: 0 0% 10%;
+    --window-glow: 120 100% 50%;
+
+    /* Gradients */
+    --gradient-terminal: linear-gradient(135deg, hsl(120 100% 20%), hsl(120 100% 50%));
+    --gradient-glow: linear-gradient(180deg, transparent, hsl(120 100% 50% / 0.1));
+
+    /* Shadows */
+    --shadow-terminal: 0 0 20px hsl(120 100% 50% / 0.3);
+    --shadow-glow: 0 0 40px hsl(120 100% 50% / 0.4);
+    --shadow-window: inset 0 0 20px hsl(120 100% 50% / 0.1);
+
+    /* Typography */
+    --font-terminal: 'VT323', monospace;
+    --font-code: 'Source Code Pro', monospace;
+
+    /* Animation Timings */
+    --transition-terminal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --flicker-animation: flicker 0.1s infinite linear alternate;
+
+    --radius: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-primary;
+    font-family: 'VT323', monospace;
+    text-shadow: 0 0 2px rgba(3, 255, 4, 0.5);
+    overflow-x: hidden;
+    /* Add a subtle animated grid background */
+    background-image:
+        linear-gradient(hsla(var(--primary), 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, hsla(var(--primary), 0.05) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    animation: pan-background 60s linear infinite;
+  }
+
+  /* CRT Scanline and flicker effect */
+  body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+    background-size: 100% 3px;
+    z-index: 1000;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+  }
+}
+
+@layer components {
+  .text-glow {
+    color: var(--glow-color);
+    text-shadow: 0 0 3px var(--glow-color), 0 0 8px var(--glow-color), 0 0 15px var(--glow-color);
+  }
+
+  .ascii-logo {
+      font-family: 'Courier New', Courier, monospace;
+      white-space: pre;
+      line-height: 1.2;
+      transition: all 0.3s ease-in-out;
+  }
+  .ascii-logo:hover {
+      transform: scale(1.02);
+      text-shadow: 0 0 5px var(--glow-color);
+  }
+
+  .window-panel {
+      border: 1px solid hsl(var(--primary));
+      padding: 1.5rem;
+      background: rgba(25, 15, 0, 0.3);
+      backdrop-filter: blur(2px);
+      box-shadow: inset 0 0 15px rgba(3, 255, 4, 0.1), 0 0 15px rgba(3, 255, 4, 0.1);
+      position: relative;
+  }
+  /* Adding corner brackets for more retro UI feel */
+  .window-panel::before, .window-panel::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: hsl(var(--primary));
+      border-style: solid;
+  }
+  .window-panel::before {
+      top: -2px;
+      left: -2px;
+      border-width: 2px 0 0 2px;
+  }
+  .window-panel::after {
+      bottom: -2px;
+      right: -2px;
+      border-width: 0 2px 2px 0;
+  }
+
+  .window-panel-title {
+      background-color: hsl(var(--primary));
+      color: hsl(var(--background));
+      padding: 0.15rem 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      text-shadow: none;
+      margin-top: -2.5rem;
+      margin-left: -0.5rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+  }
+
+  .log-item::before {
+      content: 'C:\\>_';
+      animation: blink 1s step-end infinite;
+      margin-right: 0.5rem;
+  }
+
+  .btn-retro {
+      background: transparent;
+      color: hsl(var(--primary));
+      text-shadow: none;
+      padding: 0.75rem 2rem;
+      border: 1px solid hsl(var(--primary));
+      box-shadow: inset 0 0 5px hsla(var(--primary), 0.2);
+      transition: all 0.2s ease-in-out;
+      text-transform: uppercase;
+      display: inline-block;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+  }
+  .btn-retro:hover {
+      background: hsl(var(--primary));
+      color: hsl(var(--background));
+      box-shadow: 0 0 15px hsl(var(--primary));
+      text-shadow: none;
+  }
+  /* Adding a scanline effect on hover */
+  .btn-retro::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.1) 0px,
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px,
+          transparent 4px
+      );
+      transform: rotate(45deg);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+  }
+  .btn-retro:hover::after {
+      opacity: 1;
+  }
+
+  .section-divider {
+      color: hsl(var(--primary));
+      text-align: center;
+      font-size: 1.25rem;
+      text-shadow: 0 0 5px hsl(var(--primary));
+      letter-spacing: 0.5em;
+  }
+
+  .blinking-cursor {
+       animation: blink 1s step-end infinite;
+  }
+
+  #bootloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      color: hsl(var(--primary));
+      font-family: 'VT323', monospace;
+      z-index: 9999;
+      padding: 2rem;
+      overflow-y: hidden;
+      display: flex; /* Added for centering */
+      flex-direction: column; /* Added for centering */
+      justify-content: center; /* Added for centering */
+      align-items: center; /* Added for centering */
+  }
+  #main-content {
+      transition: opacity 0.5s ease-in;
+      visibility: hidden; /* Initially hidden */
+      opacity: 0;
+  }
+
+  footer a {
+      transition: all 0.2s ease;
+      padding: 0.25rem 0.5rem;
+  }
+  footer a:hover {
+      background: hsl(var(--primary));
+      color: hsl(var(--background));
+      text-shadow: none;
+  }
+}
+
+@keyframes pan-background {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.9; }
+  50% { opacity: 0.95; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}

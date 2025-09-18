@@ -12,7 +12,7 @@
     <style>
     :root {
         --primary-color: #03FF04; /* Classic Amber */
-        --background-color: #0a0a0a;
+        --background-color: #000000;
         --glow-color: #03FF04;
     }
 
@@ -108,7 +108,8 @@
         background-color: var(--primary-color);
         color: var(--background-color);
         padding: 0.15rem 0.75rem;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         text-shadow: none;
         margin-top: -2.5rem;
         margin-left: -0.5rem;
@@ -118,7 +119,7 @@
     }
 
     .log-item::before {
-        content: 'C:\>_';
+        content: 'C:\\>_';
         animation: blink 1s step-end infinite;
         margin-right: 0.5rem;
     }
@@ -194,7 +195,11 @@
         font-family: 'VT323', monospace;
         z-index: 9999;
         padding: 2rem;
-        overflow-y: auto;
+        overflow-y: hidden;
+        display: flex; /* Added for centering */
+        flex-direction: column; /* Added for centering */
+        justify-content: center; /* Added for centering */
+        align-items: center; /* Added for centering */
     }
     #main-content {
         transition: opacity 0.5s ease-in;
@@ -217,9 +222,12 @@
 <body>
 
     <div id="bootloader">
-        <div id="boot-log" class="text-xl"></div>
-        <div id="loader-container" class="text-xl"></div>
-        <span class="blinking-cursor text-xl">█</span>
+        <img src="logo.png" alt="N.O.D.E. Protocol Logo" class="w-32 h-32 mb-8 text-glow">
+        <div class="w-full max-w-3xl">
+            <div id="boot-log" class="text-xl h-48 overflow-y-hidden text-left"></div>
+            <div id="loader-container" class="text-xl mt-4"></div>
+        </div>
+        <span class="blinking-cursor text-xl mt-4">█</span>
     </div>
 
     <div id="main-content">
@@ -228,7 +236,7 @@
             <!-- Header Section -->
             <header class="py-16 md:py-24">
                 <div class="window-panel max-w-5xl mx-auto">
-                    <div class="window-panel-title">SYSTEM.BOOT</div>
+                    <div class="window-panel-title"><img src="logo.svg" alt="N.O.D.E. Protocol Logo" class="h-6 mr-2">SYSTEM.BOOT</div>
                     <div class="grid md:grid-cols-2 gap-8 items-center">
                         <div class="text-left">
                              <h1 class="text-5xl md:text-7xl uppercase text-glow mb-4" data-type-effect>
