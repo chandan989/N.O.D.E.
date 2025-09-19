@@ -64,19 +64,25 @@ export const UserTypeSelector: React.FC = () => {
       )}
 
       <div id="main-content">
-        <div className="container mx-auto px-6 py-16 text-xl"> {/* Increased vertical padding */}
-          <section id="join" className="text-center py-16"> {/* Increased vertical padding */}
-            <h2 className="text-5xl uppercase text-glow mb-8" data-type-effect> {/* Increased font size and margin */}
-              &gt; AUTHENTICATION REQUIRED
-            </h2>
-            <p className="max-w-3xl mx-auto mb-12 text-2xl" data-type-effect> {/* Increased max-width, margin and font-size*/}
-              Select your access level to interface with the Neighborhood Operated Decentralized Economy.
-            </p>
-            <div className="flex flex-col md:flex-row justify-center items-center gap-8"> {/* Increased gap */}
-              <button onClick={() => setUserType('user')} className="btn-retro text-3xl px-8 py-4">[ USER ACCESS ]</button> {/* Increased font size and padding */}
-              <button onClick={() => setUserType('business')} className="btn-retro text-3xl px-8 py-4">[ BUSINESS ACCESS ]</button> {/* Increased font size and padding */}
+        <div className="container mx-auto px-6 text-xl flex items-center justify-center min-h-screen">
+            <div className="window-panel max-w-4xl w-full">
+                <div className="window-panel-title">
+                    <img src="/logo.svg" alt="N.O.D.E. Logo" className="h-6 mr-2" />
+                    SYSTEM.AUTH
+                </div>
+                <section id="join" className="text-center">
+                    <h2 className="text-5xl uppercase text-glow mt-8 mb-8" data-type-effect>
+                        &gt; AUTHENTICATION REQUIRED
+                    </h2>
+                    <p className="max-w-2xl mx-auto mb-12 text-2xl" data-type-effect>
+                        Select your access level to interface with the Neighborhood Operated Decentralized Economy.
+                    </p>
+                    <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+                        <button onClick={() => setUserType('user')} className="btn-retro text-3xl px-8 py-4">[ USER ACCESS ]</button>
+                        <button onClick={() => setUserType('business')} className="btn-retro text-3xl px-8 py-4">[ BUSINESS ACCESS ]</button>
+                    </div>
+                </section>
             </div>
-          </section>
         </div>
       </div>
     </div>
