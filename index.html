@@ -27,8 +27,8 @@
             text-shadow: 0 0 3px rgba(0, 255, 127, 0.5);
             overflow-x: hidden;
             background-image:
-                linear-gradient(rgba(0, 255, 127, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 127, 0.03) 1px, transparent 1px);
+                    linear-gradient(rgba(0, 255, 127, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 255, 127, 0.03) 1px, transparent 1px);
             background-size: 2.5rem 2.5rem;
             animation: pan-background 90s linear infinite;
             display: flex;
@@ -58,9 +58,9 @@
         }
 
         @keyframes flicker {
-          0% { opacity: 0.95; }
-          50% { opacity: 0.92; }
-          100% { opacity: 0.95; }
+            0% { opacity: 0.95; }
+            50% { opacity: 0.92; }
+            100% { opacity: 0.95; }
         }
 
         .text-glow {
@@ -164,7 +164,7 @@
         }
 
         .blinking-cursor {
-             animation: blink 1s step-end infinite;
+            animation: blink 1s step-end infinite;
         }
 
         #bootloader {
@@ -177,7 +177,7 @@
             color: var(--primary-color);
             font-family: 'Fira Code', monospace;
             z-index: 9999;
-            padding: 2rem;
+            padding: 1rem;
             overflow-y: hidden;
             display: flex; /* Added for centering */
             flex-direction: column; /* Added for centering */
@@ -188,6 +188,7 @@
             transition: opacity 0.5s ease-in;
             visibility: hidden; /* Initially hidden */
             opacity: 0;
+            width: 100%;
         }
 
         /* Footer link styles */
@@ -200,39 +201,60 @@
             color: var(--background-color);
             text-shadow: none;
         }
+
+        @media screen and (max-width: 768px) {
+            .window-panel {
+                padding: 1rem;
+            }
+            .window-panel-title {
+                margin-top: -2.2rem;
+                margin-left: -0.25rem;
+                font-size: 0.9rem;
+            }
+            .btn-retro {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .section-divider pre {
+                transform: scale(0.8);
+            }
+            .ascii-logo {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div id="bootloader">
-    <img src="logo.png" alt="N.O.D.E. Protocol Logo" class="w-32 h-32 mb-8 text-glow">
-    <div class="w-full max-w-3xl">
-        <div id="boot-log" class="text-xl h-48 overflow-y-hidden text-left"></div>
-        <div id="loader-container" class="text-xl mt-4"></div>
+    <img src="logo.png" alt="N.O.D.E. Protocol Logo" class="w-24 h-24 sm:w-32 sm:h-32 mb-8 text-glow">
+    <div class="w-full max-w-3xl px-2 sm:px-4">
+        <div id="boot-log" class="text-base sm:text-xl h-48 overflow-y-hidden text-left"></div>
+        <div id="loader-container" class="text-base sm:text-xl mt-4"></div>
     </div>
     <span class="blinking-cursor text-xl mt-4">█</span>
 </div>
 
 <div id="main-content">
-    <div class="container mx-auto px-6 py-8 text-xl">
+    <div class="container mx-auto px-4 sm:px-6 py-8 text-lg sm:text-xl">
 
         <!-- Header Section -->
-        <header class="py-16 md:py-24">
+        <header class="py-12 sm:py-16 md:py-24">
             <div class="window-panel max-w-5xl mx-auto">
-                <div class="window-panel-title"><img src="logo.svg" alt="N.O.D.E. Protocol Logo" class="h-6 mr-2">SYSTEM.BOOT</div>
-                <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="window-panel-title"><img src="logo.svg" alt="N.O.D.E. Protocol Logo" class="h-5 sm:h-6 mr-2">SYSTEM.BOOT</div>
+                <div class="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
                     <div class="text-left">
-                        <h1 class="text-5xl md:text-7xl uppercase text-glow mb-4" data-type-effect>
+                        <h1 class="text-4xl sm:text-5xl md:text-7xl uppercase text-glow mb-4" data-type-effect>
                             N.O.D.E. PROTOCOL
                         </h1>
-                        <p class="text-xl md:text-2xl mt-2" data-type-effect>
+                        <p class="text-lg sm:text-xl md:text-2xl mt-2" data-type-effect>
                             Neighborhood Operated Decentralized Economy
                         </p>
-                        <p class="mt-6 text-lg md:text-xl" data-type-effect>
+                        <p class="mt-6 text-base sm:text-lg md:text-xl" data-type-effect>
                             "The Neighborhood is the Network. The Network is the Future."
                         </p>
                         <div class="mt-8" data-type-effect>
-                            <a href="#join" class="btn-retro text-2xl">[ INITIATE CONNECTION ]</a>
+                            <a href="#join" class="btn-retro text-lg sm:text-xl">[ INITIATE CONNECTION ]</a>
                         </div>
                     </div>
                     <div class="hidden md:block">
@@ -260,7 +282,7 @@
              \/____/                                           ~~                       \/____/
 
                             </pre>
-                        <div class="mt-4 text-base md:text-lg text-center" data-type-effect>
+                        <div class="mt-4 text-sm sm:text-base md:text-lg text-center" data-type-effect>
                             &gt; TRANSMISSION STATUS: DECRYPTED // CONNECTION ESTABLISHED
                         </div>
                     </div>
@@ -268,14 +290,14 @@
             </div>
         </header>
 
-        <div class="section-divider py-12">
+        <div class="section-divider py-8 sm:py-12">
             <pre>==================================</pre>
         </div>
 
 
         <!-- System Directive Section -->
-        <section id="directive" class="max-w-4xl mx-auto text-left py-12">
-            <h2 class="text-4xl uppercase text-glow mb-6" data-type-effect>&gt; SYSTEM_DIRECTIVE.EXE</h2>
+        <section id="directive" class="max-w-4xl mx-auto text-left py-8 sm:py-12">
+            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-6" data-type-effect>&gt; SYSTEM_DIRECTIVE.EXE</h2>
             <p class="leading-relaxed" data-type-effect>
                 INITIATING BOOT SEQUENCE... OK.
             </p>
@@ -290,49 +312,49 @@
             </p>
         </section>
 
-        <div class="section-divider py-12">
+        <div class="section-divider py-8 sm:py-12">
             <pre>==================================</pre>
         </div>
 
         <!-- Core Protocols Section -->
-        <section id="protocols" class="py-12">
-            <h2 class="text-4xl uppercase text-glow mb-12 text-center" data-type-effect>&gt; DIR /CORE_PROTOCOLS</h2>
-            <div class="grid md:grid-cols-3 gap-8">
+        <section id="protocols" class="py-8 sm:py-12">
+            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-8 sm:mb-12 text-center" data-type-effect>&gt; DIR /CORE_PROTOCOLS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Protocol 1 -->
                 <div class="window-panel">
                     <div class="window-panel-title">PAYMENTS.DLL</div>
-                    <h3 class="text-2xl mb-2" data-type-effect>GHOST PAYMENTS</h3>
+                    <h3 class="text-xl sm:text-2xl mb-2" data-type-effect>GHOST PAYMENTS</h3>
                     <p data-type-effect>Value transfer at the speed of thought. Instant, direct, and virtually cost-free transactions that keep value circulating locally.</p>
                 </div>
                 <!-- Protocol 2 -->
                 <div class="window-panel">
                     <div class="window-panel-title">ASSETS.SYS</div>
-                    <h3 class="text-2xl mb-2" data-type-effect>COLLECTIVE ASSETS</h3>
+                    <h3 class="text-xl sm:text-2xl mb-2" data-type-effect>COLLECTIVE ASSETS</h3>
                     <p data-type-effect>From scarcity to shared abundance. Tokenize real-world assets, fractionalize ownership, and democratize access to capital goods.</p>
                 </div>
                 <!-- Protocol 3 -->
                 <div class="window-panel">
                     <div class="window-panel-title">VAULT.BAT</div>
-                    <h3 class="text-2xl mb-2" data-type-effect>AUTONOMOUS VAULT</h3>
+                    <h3 class="text-xl sm:text-2xl mb-2" data-type-effect>AUTONOMOUS VAULT</h3>
                     <p data-type-effect>The community becomes the bank. Community-powered liquidity pools offering fair yields and accessible capital for entrepreneurs.</p>
                 </div>
             </div>
         </section>
 
-        <div class="section-divider py-12">
+        <div class="section-divider py-8 sm:py-12">
             <pre>==================================</pre>
         </div>
 
         <!-- Neural Architecture Section -->
-        <section id="architecture" class="py-12">
-            <h2 class="text-4xl uppercase text-glow mb-12 text-center" data-type-effect>&gt; VIEW ARCHITECTURE.TXT</h2>
+        <section id="architecture" class="py-8 sm:py-12">
+            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-8 sm:mb-12 text-center" data-type-effect>&gt; VIEW ARCHITECTURE.TXT</h2>
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex flex-col items-center space-y-8">
 
                     <!-- Layer 1 -->
                     <div class="window-panel w-full max-w-lg text-center">
                         <div class="window-panel-title">INTERFACE LAYER</div>
-                        <h3 class="text-2xl" data-type-effect>SOCIAL FABRIC</h3>
+                        <h3 class="text-xl sm:text-2xl" data-type-effect>SOCIAL FABRIC</h3>
                         <p class="text-sm opacity-75" data-type-effect>(User Agents)</p>
                     </div>
 
@@ -341,27 +363,27 @@
                     <!-- Layer 2 -->
                     <div class="window-panel w-full max-w-lg text-center">
                         <div class="window-panel-title">LOGIC DAEMONS</div>
-                        <h3 class="text-2xl" data-type-effect>N.O.D.E. CORE</h3>
+                        <h3 class="text-xl sm:text-2xl" data-type-effect>N.O.D.E. CORE</h3>
                         <p class="text-sm opacity-75" data-type-effect>(Smart Contracts)</p>
                     </div>
 
                     <div class="text-cyan-400 text-2xl transform rotate-90">»</div>
 
                     <!-- Layer 3 -->
-                    <div class="grid md:grid-cols-3 gap-8 w-full max-w-5xl">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full max-w-5xl">
                         <div class="window-panel text-center">
                             <div class="window-panel-title">PAYMENTS.DLL</div>
-                            <h3 class="text-xl" data-type-effect>HCS PAYMENT</h3>
+                            <h3 class="text-lg sm:text-xl" data-type-effect>HCS PAYMENT</h3>
                             <p class="text-sm opacity-75" data-type-effect>PROTOCOL</p>
                         </div>
                         <div class="window-panel text-center">
                             <div class="window-panel-title">ASSETS.SYS</div>
-                            <h3 class="text-xl" data-type-effect>HTS ASSET ENGINE</h3>
+                            <h3 class="text-lg sm:text-xl" data-type-effect>HTS ASSET ENGINE</h3>
                             <p class="text-sm opacity-75" data-type-effect>(Tokenization)</p>
                         </div>
                         <div class="window-panel text-center">
                             <div class="window-panel-title">VAULT.BAT</div>
-                            <h3 class="text-xl" data-type-effect>AUTONOMOUS VAULT</h3>
+                            <h3 class="text-lg sm:text-xl" data-type-effect>AUTONOMOUS VAULT</h3>
                             <p class="text-sm opacity-75" data-type-effect>(Lending Protocol)</p>
                         </div>
                     </div>
@@ -371,7 +393,7 @@
                     <!-- Layer 4 -->
                     <div class="window-panel w-full max-w-lg text-center">
                         <div class="window-panel-title">CONSENSUS LAYER</div>
-                        <h3 class="text-2xl" data-type-effect>HEDERA HASHGRAPH</h3>
+                        <h3 class="text-xl sm:text-2xl" data-type-effect>HEDERA HASHGRAPH</h3>
                         <p class="text-sm opacity-75" data-type-effect>(Trust Network)</p>
                     </div>
 
@@ -379,46 +401,46 @@
             </div>
         </section>
 
-        <div class="section-divider py-12">
+        <div class="section-divider py-8 sm:py-12">
             <pre>==================================</pre>
         </div>
 
         <!-- Activation Sequence -->
-        <section id="roadmap" class="py-12">
-            <h2 class="text-4xl uppercase text-glow mb-12 text-center" data-type-effect>&gt; READ ROADMAP.LOG</h2>
+        <section id="roadmap" class="py-8 sm:py-12">
+            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-8 sm:mb-12 text-center" data-type-effect>&gt; READ ROADMAP.LOG</h2>
             <div class="max-w-3xl mx-auto space-y-8">
                 <!-- Phase 1 -->
                 <div class="log-item">
-                    <h3 class="text-2xl" data-type-effect>PHASE 1: GENESIS (Q4 2025) - COMPLETE</h3>
-                    <p class="mt-2 text-lg" data-type-effect>Core contracts deployed. Wallet integrated. First nodes onboarded.</p>
+                    <h3 class="text-xl sm:text-2xl" data-type-effect>PHASE 1: GENESIS (Q4 2025) - COMPLETE</h3>
+                    <p class="mt-2 text-base sm:text-lg" data-type-effect>Core contracts deployed. Wallet integrated. First nodes onboarded.</p>
                 </div>
                 <!-- Phase 2 -->
                 <div class="log-item">
-                    <h3 class="text-2xl" data-type-effect>PHASE 2: SYMBIOSIS (Q1-Q2 2026)</h3>
-                    <p class="mt-2 text-lg" data-type-effect>N.O.D.E. Vault launch. Adaptive lending active. First CAO live.</p>
+                    <h3 class="text-xl sm:text-2xl" data-type-effect>PHASE 2: SYMBIOSIS (Q1-Q2 2026)</h3>
+                    <p class="mt-2 text-base sm:text-lg" data-type-effect>N.O.D.E. Vault launch. Adaptive lending active. First CAO live.</p>
                 </div>
                 <!-- Phase 3 -->
                 <div class="log-item">
-                    <h3 class="text-2xl" data-type-effect>PHASE 3: EXPANSION (Q3-Q4 2026)</h3>
-                    <p class="mt-2 text-lg" data-type-effect>Network expansion. Cross-neighborhood transfer. DAO transition.</p>
+                    <h3 class="text-xl sm:text-2xl" data-type-effect>PHASE 3: EXPANSION (Q3-Q4 2026)</h3>
+                    <p class="mt-2 text-base sm:text-lg" data-type-effect>Network expansion. Cross-neighborhood transfer. DAO transition.</p>
                 </div>
                 <!-- Phase 4 -->
                 <div class="log-item">
-                    <h3 class="text-2xl" data-type-effect>PHASE 4: EMERGENCE (2027+)</h3>
-                    <p class="mt-2 text-lg" data-type-effect>Autonomous inter-N.O.D.E. trade. AI optimization. Global federation.</p>
+                    <h3 class="text-xl sm:text-2xl" data-type-effect>PHASE 4: EMERGENCE (2027+)</h3>
+                    <p class="mt-2 text-base sm:text-lg" data-type-effect>Autonomous inter-N.O.D.E. trade. AI optimization. Global federation.</p>
                 </div>
             </div>
         </section>
 
-        <div class="section-divider py-12">
+        <div class="section-divider py-8 sm:py-12">
             <pre>==================================</pre>
         </div>
 
         <!-- Call to Action -->
-        <section id="join" class="text-center py-12">
-            <h2 class="text-4xl uppercase text-glow mb-6" data-type-effect>&gt; JOIN.EXE</h2>
-            <p class="max-w-2xl mx-auto mb-10" data-type-effect>This is not a company. This is a movement. We summon the architects of tomorrow, the digital artisans, the decentralized dreamers.</p>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+        <section id="join" class="text-center py-8 sm:py-12">
+            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-6" data-type-effect>&gt; JOIN.EXE</h2>
+            <p class="max-w-2xl mx-auto mb-8 sm:mb-10" data-type-effect>This is not a company. This is a movement. We summon the architects of tomorrow, the digital artisans, the decentralized dreamers.</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6">
                 <a href="#" class="btn-retro">[ WHITELIST ]</a>
                 <a href="https://github.com/chandan989/N.O.D.E." target="_blank" class="btn-retro">[ VIEW SOURCE ]</a>
                 <a href="#" class="btn-retro">[ REGISTER NODE ]</a>
@@ -427,9 +449,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-center py-8 mt-12 border-t-2 border-amber-400">
-        <p class="mb-4 text-xl">> Powered by Hedera Hashgraph</p>
-        <div class="flex justify-center space-x-6 text-xl">
+    <footer class="text-center py-6 sm:py-8 mt-8 sm:mt-12 border-t-2 border-amber-400">
+        <p class="mb-4 text-lg sm:text-xl">> Powered by Hedera Hashgraph</p>
+        <div class="flex justify-center space-x-4 sm:space-x-6 text-lg sm:text-xl">
             <a href="#">Discord</a>
             <a href="https://github.com/chandan989/N.O.D.E." target="_blank">GitHub</a>
             <a href="#">Whitepaper</a>

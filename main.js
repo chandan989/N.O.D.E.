@@ -3,21 +3,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainContent = document.getElementById('main-content');
     const bootLog = document.getElementById('boot-log');
     const loaderContainer = document.getElementById('loader-container');
-    const loaderWidth = 40;
+    
+    // Adjust loader width based on screen size
+    let loaderWidth;
+    if (window.innerWidth < 480) {
+        loaderWidth = 15;
+    } else if (window.innerWidth < 768) {
+        loaderWidth = 25;
+    } else {
+        loaderWidth = 40;
+    }
 
     const bootMessages = [
-        { text: 'INITIATING N.O.D.E. KERNEL...', delay: 100 },
-        { text: 'ESTABLISHING QUANTUM-ENTANGLED LINK...', delay: 200 },
-        { text: 'LINK CONFIRMED. PEER-TO-PEER HANDSHAKE COMPLETE.', delay: 150 },
-        { text: 'ACCESSING HEDERA CONSENSUS SERVICE... STATUS: OK.', delay: 250 },
-        { text: 'DECRYPTING GENESIS BLOCK: 0x0.0.1...', delay: 150 },
-        { text: 'HCS TOPIC ID LOCATED. VALIDATING SIGNATURES...', delay: 200 },
-        { text: 'LOADING CORE PROTOCOL DAEMONS...', delay: 100 },
-        { text: '  &gt; PAYMENTS.DLL... LOADED.', delay: 120 },
-        { text: '  &gt; ASSETS.SYS... LOADED.', delay: 120 },
-        { text: '  &gt; VAULT.BAT... LOADED.', delay: 120 },
-        { text: 'ALL SYSTEMS NOMINAL. BOOT SEQUENCE COMPLETE.', delay: 200 },
-        { text: 'LAUNCHING NEURAL-OPTICAL DISPLAY ENVIRONMENT...', delay: 300 }
+        { text: 'INITIATING N.O.D.E. PROTOCOL...', delay: 150 },
+        { text: 'ESTABLISHING SECURE CONNECTION TO HEDERA NETWORK...', delay: 250 },
+        { text: 'CONNECTION SECURE. <span class="text-glow">[OK]</span>', delay: 200 },
+        { text: 'LOADING CORE DAEMONS...', delay: 100 },
+        { text: '  &gt; GHOST_PAYMENTS.DLL... <span style="color: var(--secondary-color);">LOADED</span>', delay: 150 },
+        { text: '  &gt; COLLECTIVE_ASSETS.SYS... <span style="color: var(--secondary-color);">LOADED</span>', delay: 150 },
+        { text: '  &gt; AUTONOMOUS_VAULT.BAT... <span style="color: var(--secondary-color);">LOADED</span>', delay: 150 },
+        { text: 'ALL SYSTEMS NOMINAL.', delay: 200 },
+        { text: 'WELCOME, OPERATOR.', delay: 350 }
     ];
 
     let messageIndex = 0;
