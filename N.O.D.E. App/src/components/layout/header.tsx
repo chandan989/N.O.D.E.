@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
     { to: "/dashboard/local-exchange", label: "[LOCAL_EXCHANGE]" },
     { to: "/dashboard/payments", label: "[PAYMENTS]" },
     { to: "/dashboard/node-fund", label: "[NODE_FUND]" },
-    { to: "/dashboard/dao", label: "[DAO]" }
+    { to: "/dashboard/dao", label: "[ASSESTS]" }
   ];
 
   const links = userType === 'user' ? userLinks : businessLinks;
