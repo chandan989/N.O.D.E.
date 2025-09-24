@@ -1,105 +1,103 @@
 import React from 'react';
 import { WindowPanel } from '@/components/ui/window-panel';
-import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useWalletStore } from '@/stores/wallet-store';
+
+const SectionDivider: React.FC = () => (
+    <div className="section-divider py-10">
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
+    </div>
+);
 
 const Dashboard: React.FC = () => {
   const { isConnected, accountId } = useWalletStore();
 
   return (
-    <div className="space-y-6">
-      <WindowPanel title="System Status">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="space-y-2">
-            <div className="font-terminal text-accent">CONNECTION STATUS</div>
-            <div className="font-code text-sm">
-              STATUS: <span className={isConnected ? "text-primary" : "text-destructive"}>
-                {isConnected ? "ONLINE" : "OFFLINE"}
-              </span>
-            </div>
-            {isConnected && (
-              <div className="font-code text-sm">
-                NODE: <span className="text-primary">{accountId}</span>
-              </div>
-            )}
-          </div>
-          
-          <div className="space-y-2">
-            <div className="font-terminal text-accent">NETWORK STATUS</div>
-            <div className="font-code text-sm">
-              NETWORK: <span className="text-primary">HEDERA MAINNET</span>
-            </div>
-            <div className="font-code text-sm">
-              LATENCY: <span className="text-primary">~3.2s</span>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <div className="font-terminal text-accent">PROTOCOL VERSION</div>
-            <div className="font-code text-sm">
-              BUILD: <span className="text-primary">N.O.D.E.v1.0-GENESIS</span>
-            </div>
-            <div className="font-code text-sm">
-              PHASE: <span className="text-accent">GENESIS Q4 2025</span>
-            </div>
-          </div>
-        </div>
-      </WindowPanel>
+    <div className="container mx-auto px-6 py-8 text-xl space-y-8">
+        <h1 className="text-5xl uppercase text-glow text-center mb-4">[DASHBOARD.EXE]</h1>
 
-      <WindowPanel title="Available Modules">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <div className="border border-border rounded p-4 hover:border-primary transition-colors group">
-              <div className="flex items-center justify-between mb-2">
-                <div className="font-terminal text-primary group-hover:glow-text">
-                  PAYMENTS.DLL
+        <SectionDivider />
+
+        <section id="system-status">
+            <h2 className="text-4xl uppercase text-glow mb-12 text-center">// SYSTEM_DIAGNOSTICS</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <WindowPanel title="CONNECTION.SYS">
+                    <div className="space-y-2 min-h-[90px]">
+                        <h3 className="text-xl text-glow">CONNECTION_STATUS</h3>
+                        <p className="text-base">
+                        STATUS: <span className={isConnected ? "text-glow" : "text-red-500"}>
+                            {isConnected ? "[ONLINE]" : "[OFFLINE]"}
+                        </span>
+                        </p>
+                        {isConnected && (
+                        <p className="text-sm text-gray-400">NODE_ID: {accountId}</p>
+                        )}
+                    </div>
+                </WindowPanel>
+                
+                <WindowPanel title="NETWORK.DAT">
+                    <div className="space-y-2 min-h-[90px]">
+                        <h3 className="text-xl text-glow">NETWORK_STATUS</h3>
+                        <p className="text-base">NETWORK: <span className="text-glow">HEDERA_MAINNET</span></p>
+                        <p className="text-base">LATENCY: <span className="text-glow">~2.8s</span></p>
+                    </div>
+                </WindowPanel>
+                
+                <WindowPanel title="PROTOCOL.CFG">
+                    <div className="space-y-2 min-h-[90px]">
+                        <h3 className="text-xl text-glow">PROTOCOL_VERSION</h3>
+                        <p className="text-base">BUILD: <span className="text-glow">N.O.D.E.v1.1-GENESIS</span></p>
+                        <p className="text-base">PHASE: <span className="text-glow">GENESIS Q4 2025</span></p>
+                    </div>
+                </WindowPanel>
+            </div>
+        </section>
+
+        <SectionDivider />
+
+        <section id="available-modules">
+            <h2 className="text-4xl uppercase text-glow mb-12 text-center">// AVAILABLE_MODULES</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <WindowPanel title="PAYMENTS.DLL">
+                    <div className="flex flex-col justify-between h-full min-h-[120px]">
+                        <p className="text-base text-gray-400 mb-4">
+                            Anonymous HBAR payment system for the neighborhood network.
+                        </p>
+                        <Link to="/dashboard/payments">
+                            <button className="btn-retro w-full">[INITIALIZE]</button>
+                        </Link>
+                    </div>
+                </WindowPanel>
+
+                <div className="opacity-60">
+                    <WindowPanel title="VAULT.BAT">
+                        <div className="flex flex-col justify-between h-full min-h-[120px]">
+                            <p className="text-base text-gray-400 mb-4">
+                                Autonomous vault for yield generation and collective staking.
+                            </p>
+                            <button disabled className="btn-retro w-full">[PHASE_2]</button>
+                        </div>
+                    </WindowPanel>
                 </div>
-                <div className="text-xs font-code text-accent">ACTIVE</div>
-              </div>
-              <div className="text-sm font-code text-muted-foreground mb-3">
-                Ghost payment system for anonymous HBAR transfers within the neighborhood network.
-              </div>
-              <Link to="/dashboard/payments">
-                <Button className="terminal-button w-full">
-                  INITIALIZE MODULE
-                </Button>
-              </Link>
             </div>
-          </div>
+        </section>
 
-          <div className="space-y-4">
-            <div className="border border-border rounded p-4 opacity-50">
-              <div className="flex items-center justify-between mb-2">
-                <div className="font-terminal text-muted-foreground">
-                  VAULT.BAT
-                </div>
-                <div className="text-xs font-code text-muted-foreground">PHASE 2</div>
-              </div>
-              <div className="text-sm font-code text-muted-foreground mb-3">
-                Autonomous vault system for yield generation and collective staking.
-              </div>
-              <Button disabled className="w-full font-code">
-                COMING SOON
-              </Button>
-            </div>
-          </div>
-        </div>
-      </WindowPanel>
-
-      {!isConnected && (
-        <WindowPanel title="Security Alert">
-          <div className="bg-destructive/10 border border-destructive rounded p-4">
-            <div className="font-terminal text-destructive mb-2">
-              &gt; WALLET NOT CONNECTED
-            </div>
-            <div className="font-code text-sm text-foreground">
-              Connect your HashPack wallet to access N.O.D.E. Protocol features.
-              All transactions are secured by Hedera Hashgraph consensus.
-            </div>
-          </div>
-        </WindowPanel>
-      )}
+        {!isConnected && (
+            <>
+                <SectionDivider />
+                <section id="security-alert" className="max-w-3xl mx-auto text-left">
+                    <h2 className="text-4xl uppercase text-red-500 mb-12 text-center">// SECURITY_ALERT</h2>
+                    <WindowPanel title="ALERT.LOG">
+                        <div className="log-item text-red-500">
+                            <h3 className="text-2xl">WALLET NOT CONNECTED</h3>
+                            <p className="mt-2 text-lg">
+                            Connect your HashPack wallet to access N.O.D.E. Protocol features. All transactions are secured by Hedera Hashgraph.
+                            </p>
+                        </div>
+                    </WindowPanel>
+                </section>
+            </>
+        )}
     </div>
   );
 };

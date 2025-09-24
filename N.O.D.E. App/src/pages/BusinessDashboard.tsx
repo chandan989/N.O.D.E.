@@ -1,398 +1,176 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { WindowPanel } from '@/components/ui/window-panel';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Link } from 'react-router-dom';
 import { useWalletStore } from '@/stores/wallet-store';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, TrendingUp, Users, DollarSign, Package, Percent, Eye, Edit3 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { useUserStore } from '@/stores/user-store';
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { InfoTrigger } from '@/components/features/info-trigger';
 
-// Mock business data
-const mockBusinessData = {
-  performance: {
-    totalSales: 15420.50,
-    totalCustomers: 847,
-    averageOrder: 18.20,
-    activeOffers: 5,
-    monthlyGrowth: 12.5,
-    customerRetention: 78
+const SectionDivider: React.FC = () => (
+    <div className="section-divider py-10">
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
+    </div>
+);
+
+const chartData = [
+  { month: "January", engagement: 186 },
+  { month: "February", engagement: 305 },
+  { month: "March", engagement: 237 },
+  { month: "April", engagement: 280 },
+  { month: "May", engagement: 209 },
+  { month: "June", engagement: 314 },
+  { month: "July", engagement: 345 },
+  { month: "August", engagement: 305 },
+  { month: "September", engagement: 400 },
+  { month: "October", engagement: 380 },
+  { month: "November", engagement: 420 },
+  { month: "December", engagement: 450 },
+];
+
+const chartConfig = {
+  engagement: {
+    label: "Engagement",
+    color: "hsl(173 95% 50%)",
   },
-  listings: [
-    {
-      id: 1,
-      title: "Premium Coffee Blend",
-      price: 24.99,
-      category: "Products",
-      status: "active",
-      views: 156,
-      sales: 23
-    },
-    {
-      id: 2,
-      title: "Laptop Repair Service", 
-      price: 89.99,
-      category: "Services",
-      status: "active",
-      views: 89,
-      sales: 7
-    }
-  ],
-  offers: [
-    {
-      id: 1,
-      title: "20% Off Morning Coffee",
-      discount: 20,
-      claimed: 45,
-      maxClaims: 100,
-      validUntil: "2025-12-31",
-      status: "active"
-    },
-    {
-      id: 2,
-      title: "Free Screen Protector",
-      discount: 0,
-      claimed: 12,
-      maxClaims: 50,
-      validUntil: "2025-11-30", 
-      status: "active"
-    }
-  ]
-};
+} satisfies React.ComponentProps<typeof ChartContainer>["config"];
 
 const BusinessDashboard: React.FC = () => {
-  const { isConnected, accountId, balance } = useWalletStore();
-  const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState('overview');
-  
-  // Form states
-  const [newListing, setNewListing] = useState({
-    title: '',
-    description: '',
-    price: '',
-    category: 'Products'
-  });
-  
-  const [newOffer, setNewOffer] = useState({
-    title: '',
-    description: '',
-    discount: '',
-    maxClaims: '',
-    validUntil: ''
-  });
+  const { isConnected } = useWalletStore();
+  const { verificationStatus } = useUserStore();
 
-  const handleCreateListing = () => {
-    console.log('Creating listing:', newListing);
-    toast({
-      title: "Listing Created",
-      description: "Your new listing has been added to the local exchange.",
-    });
-    setNewListing({ title: '', description: '', price: '', category: 'Products' });
+  const businessInfo = {
+    name: "Elykid Private Limited",
+    foundedBy: "Chandan",
+    memberSince: "2024",
   };
 
-  const handleCreateOffer = () => {
-    console.log('Creating offer:', newOffer);
-    toast({
-      title: "Offer Created", 
-      description: "Your new offer is now live for customers to claim.",
-    });
-    setNewOffer({ title: '', description: '', discount: '', maxClaims: '', validUntil: '' });
-  };
+  const offers = [
+    { id: 1, title: "10% off on all services", description: "Use code 'SAVE10' at checkout." },
+    { id: 2, title: "Free consultation", description: "Book a free 30-minute consultation." },
+  ];
 
-  if (!isConnected) {
-    return (
-      <WindowPanel title="Access Denied">
-        <div className="text-center py-8">
-          <div className="font-terminal text-destructive text-xl mb-4">
-            &gt; AUTHENTICATION REQUIRED
-          </div>
-          <div className="font-code text-muted-foreground">
-            Connect your wallet to access business dashboard features.
-          </div>
-        </div>
-      </WindowPanel>
-    );
-  }
+  const coupons = [
+    { id: 1, code: "SUMMER2024", description: "20% off on all products." },
+  ];
+
+  const renderVerificationStatus = () => {
+    switch (verificationStatus) {
+      case 'verified':
+        return <span className='text-glow'>[TRUE]</span>;
+      case 'pending':
+        return <span className='text-yellow-500'>[UNDER REVIEW]</span>;
+      case 'unverified':
+      default:
+        return <Link to='/business/verify' className='text-red-500 hover:underline'>[FALSE]</Link>;
+    }
+  };
 
   return (
-    <div className="space-y-6">
-      <WindowPanel title="Business Control Center">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4 mb-6">
-            <TabsTrigger value="overview" className="font-code">OVERVIEW</TabsTrigger>
-            <TabsTrigger value="listings" className="font-code">LISTINGS</TabsTrigger>
-            <TabsTrigger value="offers" className="font-code">OFFERS</TabsTrigger>
-            <TabsTrigger value="analytics" className="font-code">ANALYTICS</TabsTrigger>
-          </TabsList>
+    <div className="container mx-auto px-4 sm:px-6 py-8 text-xl space-y-8">
+        <div className="flex items-center justify-center mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl uppercase text-glow text-center">[BUSINESS_DASHBOARD.EXE]</h1>
+            <InfoTrigger
+                title="Business Dashboard"
+                description="This is your main control panel. It provides a snapshot of your business's performance, including key metrics and summaries of your active offers, coupons, and loans. Click on any summary panel to navigate to the respective section."
+            />
+        </div>
 
-          <TabsContent value="overview" className="space-y-6">
-            {/* Performance Metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              <div className="border border-border rounded p-4 text-center">
-                <DollarSign className="w-6 h-6 text-primary mx-auto mb-2" />
-                <div className="font-code text-xs text-muted-foreground">TOTAL SALES</div>
-                <div className="font-terminal text-primary text-lg">
-                  ${mockBusinessData.performance.totalSales.toLocaleString()}
-                </div>
-              </div>
-              
-              <div className="border border-border rounded p-4 text-center">
-                <Users className="w-6 h-6 text-accent mx-auto mb-2" />
-                <div className="font-code text-xs text-muted-foreground">CUSTOMERS</div>
-                <div className="font-terminal text-accent text-lg">
-                  {mockBusinessData.performance.totalCustomers}
-                </div>
-              </div>
-              
-              <div className="border border-border rounded p-4 text-center">
-                <TrendingUp className="w-6 h-6 text-primary mx-auto mb-2" />
-                <div className="font-code text-xs text-muted-foreground">AVG ORDER</div>
-                <div className="font-terminal text-primary text-lg">
-                  ${mockBusinessData.performance.averageOrder}
-                </div>
-              </div>
-              
-              <div className="border border-border rounded p-4 text-center">
-                <Package className="w-6 h-6 text-accent mx-auto mb-2" />
-                <div className="font-code text-xs text-muted-foreground">ACTIVE LISTINGS</div>
-                <div className="font-terminal text-accent text-lg">
-                  {mockBusinessData.listings.length}
-                </div>
-              </div>
-              
-              <div className="border border-border rounded p-4 text-center">
-                <Percent className="w-6 h-6 text-primary mx-auto mb-2" />
-                <div className="font-code text-xs text-muted-foreground">GROWTH</div>
-                <div className="font-terminal text-primary text-lg">
-                  +{mockBusinessData.performance.monthlyGrowth}%
-                </div>
-              </div>
-              
-              <div className="border border-border rounded p-4 text-center">
-                <Users className="w-6 h-6 text-accent mx-auto mb-2" />
-                <div className="font-code text-xs text-muted-foreground">RETENTION</div>
-                <div className="font-terminal text-accent text-lg">
-                  {mockBusinessData.performance.customerRetention}%
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="border border-border rounded p-4">
-                <div className="font-terminal text-primary mb-4">QUICK ACTIONS</div>
-                <div className="space-y-2">
-                  <Button 
-                    onClick={() => setActiveTab('listings')}
-                    className="terminal-button w-full justify-start"
-                    size="sm"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Create New Listing
-                  </Button>
-                  <Button 
-                    onClick={() => setActiveTab('offers')}
-                    className="terminal-button w-full justify-start bg-accent hover:bg-accent/80"
-                    size="sm"
-                  >
-                    <Percent className="w-4 h-4 mr-2" />
-                    Create New Offer
-                  </Button>
-                </div>
-              </div>
-              
-              <div className="border border-border rounded p-4">
-                <div className="font-terminal text-accent mb-4">WALLET INFO</div>
-                <div className="space-y-2 font-code text-sm">
-                  <div>BALANCE: <span className="text-primary">{balance} HBAR</span></div>
-                  <div>ACCOUNT: <span className="text-muted-foreground">{accountId}</span></div>
-                  <div>STATUS: <span className="text-primary">VERIFIED BUSINESS</span></div>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="listings" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Create New Listing */}
-              <div>
-                <div className="font-terminal text-accent mb-4">CREATE NEW LISTING</div>
-                <div className="space-y-4">
-                  <Input
-                    placeholder="Listing title"
-                    value={newListing.title}
-                    onChange={(e) => setNewListing({...newListing, title: e.target.value})}
-                    className="terminal-input"
-                  />
-                  <Textarea
-                    placeholder="Listing description"
-                    value={newListing.description}
-                    onChange={(e) => setNewListing({...newListing, description: e.target.value})}
-                    className="terminal-input"
-                  />
-                  <div className="flex gap-4">
-                    <Input
-                      placeholder="Price (HBAR)"
-                      type="number"
-                      value={newListing.price}
-                      onChange={(e) => setNewListing({...newListing, price: e.target.value})}
-                      className="terminal-input"
-                    />
-                    <select 
-                      value={newListing.category}
-                      onChange={(e) => setNewListing({...newListing, category: e.target.value})}
-                      className="terminal-input"
-                    >
-                      <option value="Products">Products</option>
-                      <option value="Services">Services</option>
-                      <option value="Digital">Digital</option>
-                    </select>
-                  </div>
-                  <Button 
-                    onClick={handleCreateListing}
-                    className="terminal-button w-full"
-                    disabled={!newListing.title || !newListing.price}
-                  >
-                    CREATE LISTING
-                  </Button>
-                </div>
-              </div>
-
-              {/* Active Listings */}
-              <div>
-                <div className="font-terminal text-accent mb-4">ACTIVE LISTINGS</div>
-                <div className="space-y-3">
-                  {mockBusinessData.listings.map((listing) => (
-                    <div key={listing.id} className="border border-border rounded p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="font-code font-medium">{listing.title}</div>
-                        <Badge variant="secondary" className="font-code text-xs">
-                          {listing.category}
-                        </Badge>
-                      </div>
-                      <div className="font-code text-sm text-primary mb-2">
-                        {listing.price} HBAR
-                      </div>
-                      <div className="flex justify-between text-xs font-code text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <Eye className="w-3 h-3" />
-                          {listing.views} views
-                        </span>
-                        <span>{listing.sales} sales</span>
-                        <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
-                          <Edit3 className="w-3 h-3" />
-                        </Button>
-                      </div>
+        <SectionDivider />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-1 space-y-8">
+                <WindowPanel title="BUSINESS_DATA.SYS">
+                    <div className="space-y-2">
+                        <p className="text-base">NAME: <span className="text-glow">{businessInfo.name}</span></p>
+                        <p className="text-base">FOUNDED_BY: <span className="text-glow">{businessInfo.foundedBy}</span></p>
+                        <p className="text-base">MEMBER_SINCE: <span className="text-glow">{businessInfo.memberSince}</span></p>
+                        <p className="text-base">VERIFIED: {renderVerificationStatus()}</p>
                     </div>
-                  ))}
-                </div>
-              </div>
+                </WindowPanel>
+                <Link to="/business/offers-and-coupons">
+                    <WindowPanel title="ACTIVE_SUMMARY.DAT" className="cursor-pointer">
+                        <h3 className="text-lg sm:text-xl text-glow">ACTIVE OFFERS & COUPONS</h3>
+                        <p className="text-3xl sm:text-4xl text-glow">{offers.length + coupons.length}</p>
+                    </WindowPanel>
+                </Link>
+                <Link to="/business/funds">
+                    <WindowPanel title="ACTIVE_SUMMARY.DAT" className="cursor-pointer">
+                        <h3 className="text-lg sm:text-xl text-glow">ACTIVE FUNDING</h3>
+                        <p className="text-3xl sm:text-4xl text-glow">0</p>
+                    </WindowPanel>
+                </Link>
             </div>
-          </TabsContent>
-
-          <TabsContent value="offers" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Create New Offer */}
-              <div>
-                <div className="font-terminal text-accent mb-4">CREATE NEW OFFER</div>
-                <div className="space-y-4">
-                  <Input
-                    placeholder="Offer title"
-                    value={newOffer.title}
-                    onChange={(e) => setNewOffer({...newOffer, title: e.target.value})}
-                    className="terminal-input"
-                  />
-                  <Textarea
-                    placeholder="Offer description"
-                    value={newOffer.description}
-                    onChange={(e) => setNewOffer({...newOffer, description: e.target.value})}
-                    className="terminal-input"
-                  />
-                  <div className="grid grid-cols-2 gap-4">
-                    <Input
-                      placeholder="Discount %"
-                      type="number"
-                      value={newOffer.discount}
-                      onChange={(e) => setNewOffer({...newOffer, discount: e.target.value})}
-                      className="terminal-input"
-                    />
-                    <Input
-                      placeholder="Max claims"
-                      type="number"
-                      value={newOffer.maxClaims}
-                      onChange={(e) => setNewOffer({...newOffer, maxClaims: e.target.value})}
-                      className="terminal-input"
-                    />
-                  </div>
-                  <Input
-                    placeholder="Valid until"
-                    type="date"
-                    value={newOffer.validUntil}
-                    onChange={(e) => setNewOffer({...newOffer, validUntil: e.target.value})}
-                    className="terminal-input"
-                  />
-                  <Button 
-                    onClick={handleCreateOffer}
-                    className="terminal-button w-full"
-                    disabled={!newOffer.title || !newOffer.discount}
-                  >
-                    CREATE OFFER
-                  </Button>
-                </div>
-              </div>
-
-              {/* Active Offers */}
-              <div>
-                <div className="font-terminal text-accent mb-4">ACTIVE OFFERS</div>
-                <div className="space-y-3">
-                  {mockBusinessData.offers.map((offer) => (
-                    <div key={offer.id} className="border border-border rounded p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="font-code font-medium">{offer.title}</div>
-                        <Badge className="font-code text-xs">
-                          {offer.discount}% OFF
-                        </Badge>
-                      </div>
-                      <div className="font-code text-sm text-muted-foreground mb-2">
-                        Claims: {offer.claimed}/{offer.maxClaims}
-                      </div>
-                      <div className="w-full bg-muted rounded-full h-2 mb-2">
-                        <div 
-                          className="bg-primary h-2 rounded-full transition-all"
-                          style={{width: `${(offer.claimed / offer.maxClaims) * 100}%`}}
-                        />
-                      </div>
-                      <div className="flex justify-between text-xs font-code text-muted-foreground">
-                        <span>Valid until {new Date(offer.validUntil).toLocaleDateString()}</span>
-                        <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
-                          <Edit3 className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="lg:col-span-2">
+                <WindowPanel title="PERFORMANCE_GRAPH.SYS">
+                    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+                        <AreaChart
+                            accessibilityLayer
+                            data={chartData}
+                            margin={{
+                                left: 12,
+                                right: 12,
+                            }}
+                        >
+                            <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-white/10" />
+                            <XAxis
+                                dataKey="month"
+                                tickLine={false}
+                                axisLine={false}
+                                tickMargin={8}
+                                tickFormatter={(value) => value.slice(0, 3)}
+                                className="fill-white/50"
+                            />
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent indicator="line" />}
+                            />
+                            <defs>
+                                <linearGradient id="fillEngagement" x1="0" y1="0" x2="0" y2="1">
+                                <stop
+                                    offset="5%"
+                                    stopColor="var(--color-engagement)"
+                                    stopOpacity={0.8}
+                                />
+                                <stop
+                                    offset="95%"
+                                    stopColor="var(--color-engagement)"
+                                    stopOpacity={0.1}
+                                />
+                                </linearGradient>
+                            </defs>
+                            <Area
+                                dataKey="engagement"
+                                type="natural"
+                                fill="url(#fillEngagement)"
+                                stroke="var(--color-engagement)"
+                                stackId="a"
+                            />
+                        </AreaChart>
+                    </ChartContainer>
+                </WindowPanel>
             </div>
-          </TabsContent>
+        </div>
 
-          <TabsContent value="analytics" className="space-y-6">
-            <div className="text-center py-12">
-              <TrendingUp className="w-16 h-16 text-primary mx-auto mb-4" />
-              <div className="font-terminal text-accent text-xl mb-4">
-                ANALYTICS.EXE
-              </div>
-              <div className="font-code text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Advanced analytics and performance insights coming in Phase 2.
-                Track customer engagement, conversion rates, and revenue optimization.
-              </div>
-              <Button disabled className="font-code">
-                COMING SOON
-              </Button>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </WindowPanel>
+        {!isConnected && (
+            <>
+                <SectionDivider />
+                <section id="security-alert" className="max-w-3xl mx-auto text-left">
+                    <h2 className="text-4xl uppercase text-red-500 mb-12 text-center">// SECURITY_ALERT</h2>
+                    <WindowPanel title="ALERT.LOG">
+                        <div className="log-item text-red-500">
+                            <h3 className="text-2xl">WALLET NOT CONNECTED</h3>
+                            <p className="mt-2 text-lg">
+                            Connect your HashPack wallet to access N.O.D.E. Protocol features. All transactions are secured by Hedera Hashgraph.
+                            </p>
+                        </div>
+                    </WindowPanel>
+                </section>
+            </>
+        )}
     </div>
   );
 };

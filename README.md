@@ -29,7 +29,7 @@ Value generated within a N.O.D.E. is recycled, reinvested, and amplified, creati
 
 ---
 
-## CORE PROTOCOLS: THE NEURAL ARCHITECTURE OF NEW COMMERCE
+## CORE PROTOCOLS
 
 ### ⚡ GHOST-IN-THE-SHELL PAYMENTS
 *Value transfer at the speed of thought*
@@ -69,35 +69,6 @@ Value generated within a N.O.D.E. is recycled, reinvested, and amplified, creati
 - **The N.O.D.E. Vault:** Community members stake assets for stable, predictable yields while funding neighborhood growth
 - **Adaptive Micro-Loans:** Trust algorithm weighs community standing and social proof over outdated credit scores
 - **Revenue-Share Repayment:** No fixed monthly debt sentences—borrowers repay flexible percentages of daily revenue. Success is symbiotic.
-
----
-
-## NEURAL ARCHITECTURE: BENEATH THE CHROME
-
-```
-                    ┌─────────────────────┐
-                    │   SOCIAL FABRIC     │ (Interface Layer)
-                    │   (User Agents)     │
-                    └─────────┬───────────┘
-                              │
-                    ┌─────────▼───────────┐
-                    │    N.O.D.E. CORE   │ (Logic Daemons)
-                    │  (Smart Contracts) │
-                    └─────────┬───────────┘
-                              │
-        ┌─────────────────────┼─────────────────────┐
-        │                     │                     │
-┌───────▼──────────┐ ┌────────▼────────┐ ┌─────────▼─────────┐
-│  HCS PAYMENT     │ │ HTS ASSET ENGINE│ │ AUTONOMOUS VAULT  │
-│   PROTOCOL       │ │ (Tokenization)  │ │ (Lending Protocol)│
-└──────────────────┘ └─────────────────┘ └───────────────────┘
-        │                     │                     │
-        └─────────────────────▼─────────────────────┘
-                    ┌─────────────────────┐
-                    │  HEDERA HASHGRAPH   │ (Consensus Layer)
-                    │   (Trust Network)   │
-                    └─────────────────────┘
-```
 
 ---
 
