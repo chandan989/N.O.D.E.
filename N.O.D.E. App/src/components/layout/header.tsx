@@ -45,18 +45,18 @@ export const Header: React.FC<HeaderProps> = ({
 
   const businessLinks = [
     { to: "/business/dashboard", label: "[DASHBOARD]" },
-    { to: "/business/offers-and-coupons", label: "[OFFERS_&_COUPONS]" },
+    // { to: "/business/offers-and-coupons", label: "[OFFERS_&_COUPONS]" },
     { to: "/business/local-exchange", label: "[LOCAL_EXCHANGE]" },
-    { to: "/business/funds", label: "[FUNDS]" },
-    { to: "/business/modules", label: "[MODULES]" },
+    { to: "/business/node-funds", label: "[NODE_FUND]" },
+    // { to: "/business/modules", label: "[MODULES]" },
   ];
 
   const userLinks = [
     { to: "/dashboard", label: "[HOME]" },
-    { to: "/dashboard/offers-and-coupons", label: "[OFFERS_&_COUPONS]" },
+    // { to: "/dashboard/offers-and-coupons", label: "[OFFERS_&_COUPONS]" },
     { to: "/dashboard/local-exchange", label: "[LOCAL_EXCHANGE]" },
-    { to: "/dashboard/payments", label: "[PAYMENTS]" },
-    { to: "/dashboard/node-fund", label: "[NODE_FUND]" },
+    // { to: "/dashboard/payments", label: "[PAYMENTS]" },
+    { to: "/dashboard/node-funds", label: "[NODE_FUND]" },
     { to: "/dashboard/dao", label: "[ASSESTS]" }
   ];
 

@@ -29,6 +29,7 @@ import UserOffersAndCoupons from "./pages/UserOffersAndCoupons";
 import UserLocalExchange from "./pages/UserLocalExchange";
 import UserNodeFund from "./pages/UserNodeFund";
 import UserDAO from "@/pages/UserDAO.tsx";
+import BusinessNodeFund from "@/pages/BusinessNodeFund.tsx";
 
 const queryClient = new QueryClient();
 
@@ -90,6 +91,7 @@ const App = () => {
                 <Route path="/business/offers-and-coupons" element={<BusinessOffersAndCoupons />} />
                 <Route path="/business/local-exchange" element={<LocalExchange />} />
                 <Route path="/business/funds" element={<BusinessFunds />} />
+                  <Route path="/business/node-funds" element={<BusinessNodeFund />} />
                 <Route path="/business/modules" element={<BusinessModules />} />
                 <Route path="/business/verify" element={<BusinessVerificationPage />} />
 

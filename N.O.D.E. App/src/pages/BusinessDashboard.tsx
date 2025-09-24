@@ -49,14 +49,21 @@ const BusinessDashboard: React.FC = () => {
     memberSince: "2024",
   };
 
-  const offers = [
-    { id: 1, title: "10% off on all services", description: "Use code 'SAVE10' at checkout." },
-    { id: 2, title: "Free consultation", description: "Book a free 30-minute consultation." },
-  ];
+  const localExchangeData = {
+      tokensListed: 1000000,
+      tokenPrice: 0.5,
+      marketCap: 500000,
+      volume24h: 12500,
+  };
 
-  const coupons = [
-    { id: 1, code: "SUMMER2024", description: "20% off on all products." },
-  ];
+  const nodeFundData = {
+      activeLoan: 50000,
+      interestRate: '5%',
+      dailyRepayment: 100,
+      nextPayment: '2024-08-01',
+      totalNodeFundValue: 10000000, // Mock data for total NODE fund value
+      maxLoanAmount: 250000, // Mock data for maximum loan amount a business can apply for
+  };
 
   const renderVerificationStatus = () => {
     switch (verificationStatus) {
@@ -91,16 +98,28 @@ const BusinessDashboard: React.FC = () => {
                         <p className="text-base">VERIFIED: {renderVerificationStatus()}</p>
                     </div>
                 </WindowPanel>
-                <Link to="/business/offers-and-coupons">
-                    <WindowPanel title="ACTIVE_SUMMARY.DAT" className="cursor-pointer">
-                        <h3 className="text-lg sm:text-xl text-glow">ACTIVE OFFERS & COUPONS</h3>
-                        <p className="text-3xl sm:text-4xl text-glow">{offers.length + coupons.length}</p>
+                <Link to="/business/local-exchange">
+                    <WindowPanel title="LOCAL_EXCHANGE.DAT" className="cursor-pointer">
+                        <h3 className="text-lg sm:text-xl text-glow">LOCAL_EXCHANGE</h3>
+                        <div className="space-y-2 mt-2 text-base">
+                            <p>Tokens Listed: <span className="text-glow">{localExchangeData.tokensListed.toLocaleString()}</span></p>
+                            <p>Token Price: <span className="text-glow">${localExchangeData.tokenPrice.toFixed(2)}</span></p>
+                            <p>Market Cap: <span className="text-glow">${localExchangeData.marketCap.toLocaleString()}</span></p>
+                            <p>24h Volume: <span className="text-glow">${localExchangeData.volume24h.toLocaleString()}</span></p>
+                        </div>
                     </WindowPanel>
                 </Link>
                 <Link to="/business/funds">
-                    <WindowPanel title="ACTIVE_SUMMARY.DAT" className="cursor-pointer">
-                        <h3 className="text-lg sm:text-xl text-glow">ACTIVE FUNDING</h3>
-                        <p className="text-3xl sm:text-4xl text-glow">0</p>
+                    <WindowPanel title="NODE_FUND.DAT" className="cursor-pointer">
+                        <h3 className="text-lg sm:text-xl text-glow">NODE_FUND</h3>
+                        <div className="space-y-2 mt-2 text-base">
+                            <p>Active Loan: <span className="text-glow">${nodeFundData.activeLoan.toLocaleString()}</span></p>
+                            <p>Interest Rate: <span className="text-glow">{nodeFundData.interestRate}</span></p>
+                            <p>Daily Repayment: <span className="text-glow">${nodeFundData.dailyRepayment.toLocaleString()}</span></p>
+                            <p>Total Fund Value: <span className="text-glow">${nodeFundData.totalNodeFundValue.toLocaleString()}</span></p>
+                            <p>Max Loan Amount: <span className="text-glow">${nodeFundData.maxLoanAmount.toLocaleString()}</span></p>
+                            <p>Next Payment: <span className="text-glow">{nodeFundData.nextPayment}</span></p>
+                        </div>
                     </WindowPanel>
                 </Link>
             </div>

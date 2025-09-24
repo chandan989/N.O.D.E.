@@ -1,9 +1,8 @@
 import React from 'react';
-import PaymentsGlimpse from '@/components/glimpses/PaymentsGlimpse';
-import UserOffersAndCouponsGlimpse from '@/components/glimpses/UserOffersAndCouponsGlimpse';
 import UserLocalExchangeGlimpse from '@/components/glimpses/UserLocalExchangeGlimpse';
 import UserNodeFundGlimpse from '@/components/glimpses/UserNodeFundGlimpse';
-import QRCodePayment from '@/components/features/QRCodePayment';
+import LocalExchangeGraph from '@/components/features/LocalExchangeGraph';
+import UserAssetGlimpse from '@/components/glimpses/UserAssetGlimpse';
 
 const UserDashboard: React.FC = () => {
   return (
@@ -14,20 +13,13 @@ const UserDashboard: React.FC = () => {
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Content */}
         <main className="lg:col-span-2 space-y-8">
-          <PaymentsGlimpse />
-          <UserLocalExchangeGlimpse />
-        </main>
-
-        {/* Sidebar */}
-        <aside className="space-y-8">
-          <div className="bg-card p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-            <QRCodePayment />
-          </div>
+          <LocalExchangeGraph />
           <UserNodeFundGlimpse />
-          <UserOffersAndCouponsGlimpse />
+        </main>
+        <aside className="space-y-8">
+          <UserLocalExchangeGlimpse />
+          <UserAssetGlimpse />
         </aside>
       </div>
     </div>
