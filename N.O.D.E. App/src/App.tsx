@@ -82,7 +82,7 @@ const App = () => {
                 <Route path="/dashboard/offers-and-coupons" element={<UserOffersAndCoupons />} />
                 <Route path="/dashboard/local-exchange" element={<UserLocalExchange />} />
                 <Route path="/dashboard/payments" element={<Payments />} />
-                <Route path="/dashboard/node-fund" element={<UserNodeFund />} />
+                <Route path="/dashboard/node-funds" element={<UserNodeFund />} />
                 <Route path="/dashboard/dao" element={<UserDAO />} />
 
 
