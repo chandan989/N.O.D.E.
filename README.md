@@ -1,4 +1,11 @@
-# N.O.D.E. PROTOCOL
+<div align="center">
+
+
+
+```ascii
+█▄░█ █▀█ █▀▄ █▀▀   █▀█ █▀█ █▀█ ▀█▀ █▀█ █▀▀ █▀█ █░░
+█░▀█ █▄█ █▄▀ █▄▄   █▀▀ █▀▄ █▄█ ░█░ █▄█ █▄▄ █▄█ █▄▄
+```
 **Neighborhood Operated Decentralized Economy on Hedera**
 
 <img src="./logo.png" alt="Red Médica Logo" width="100" />
@@ -9,16 +16,8 @@ CHRONOMARK: 2025.09.17 :: GENESIS INITIALIZED
 NETWORK STATUS: AWAKENING
 ```
 
-```ascii
-█▄░█ █▀█ █▀▄ █▀▀   █▀█ █▀█ █▀█ ▀█▀ █▀█ █▀▀ █▀█ █░░
-█░▀█ █▄█ █▄▀ █▄▄   █▀▀ █▀▄ █▄█ ░█░ █▄█ █▄▄ █▄█ █▄▄
-```
-
-> *A spectre is haunting the old world... the spectre of a decentralized future.*  
-> *The connection is live. The N.O.D.E. is awake.*
-
 ---
-
+</div>
 ## SYSTEM DIRECTIVE: AWAKEN THE LOCAL SYNAPSE
 
 For too long, the economic lifeblood of our communities has been drained by centralized megacorps, leaving local networks fragmented and powerless. The promise of a connected world delivered only extraction and control.
