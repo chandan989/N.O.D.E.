@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%2300FF00' d='M50,5 L95,27.5 L95,72.5 L50,95 L5,72.5 L5,27.5 Z M50,15 L15,33.1 V66.9 L50,85 L85,66.9 V33.1 Z M50,25 L25,38.8 V61.2 L50,75 L75,61.2 V38.8 Z'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" href="logo.png">
 
     <style>
         :root {
@@ -125,7 +125,7 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            transition: opacity 1s ease-out;
             overflow: hidden;
         }
 
@@ -319,45 +319,45 @@
             </div>
         </section>
 
-        <!-- Neural Architecture Section -->
-        <section id="architecture" class="py-20 md:py-32">
+        <!-- System Architecture Section -->
+        <section id="architecture" class="py-20 md:py-32 bg-grid-pattern">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 md:mb-16 section-fade-in">
-                    <h2 class="text-5xl md:text-6xl font-bold tracking-tight">SYSTEM_ARCHITECTURE</h2>
-                    <p class="text-2xl mt-2">// Multi-layered design for security, speed, and decentralization.</p>
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-tight">
+                        SYSTEM <span class="text-glow">ARCHITECTURE</span>
+                    </h2>
+                    <p class="text-2xl mt-2">// A multi-layered, decentralized trust fabric.</p>
                 </div>
                 <div class="max-w-5xl mx-auto section-fade-in">
-                    <div class="space-y-4 text-center">
+                    <div class="flex flex-col items-center space-y-4 text-center">
+
                         <!-- Layer 1 -->
-                        <div class="pixel-card p-6 max-w-lg mx-auto">
-                            <p class="text-lg font-bold text-green-500 tracking-widest">[ LAYER 1 ]</p>
-                            <h3 class="text-3xl font-semibold">SOCIAL FABRIC (USER AGENTS)</h3>
+                        <div class="w-full max-w-lg p-4 border-2 border-black bg-white/80 backdrop-blur-sm">
+                            <p class="text-lg font-bold text-green-500 tracking-widest">[ APPLICATION LAYER ]</p>
+                            <h3 class="text-3xl font-semibold">SOCIAL_FABRIC_AGENTS</h3>
                         </div>
-                        <div class="text-4xl">V</div>
+
+                        <div class="text-4xl font-black text-glow">V</div>
+
                         <!-- Layer 2 -->
-                        <div class="pixel-card p-6 max-w-lg mx-auto">
-                           <p class="text-lg font-bold text-green-500 tracking-widest">[ LAYER 2 ]</p>
-                            <h3 class="text-3xl font-semibold">N.O.D.E. CORE (SMART CONTRACTS)</h3>
+                        <div class="w-full max-w-2xl p-4 border-2 border-black bg-white/80 backdrop-blur-sm">
+                            <p class="text-lg font-bold text-green-500 tracking-widest">[ PROTOCOL LAYER ]</p>
+                            <h3 class="text-3xl font-semibold mb-4">N.O.D.E._CORE_CONTRACTS</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xl font-semibold">
+                                <div class="border-2 border-black p-2">GHOST_PAYMENTS</div>
+                                <div class="border-2 border-black p-2">COLLECTIVE_ASSETS</div>
+                                <div class="border-2 border-black p-2">AUTONOMOUS_VAULT</div>
+                            </div>
                         </div>
-                         <div class="text-4xl">V</div>
+
+                        <div class="text-4xl font-black text-glow">V</div>
+
                         <!-- Layer 3 -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="pixel-card p-4">
-                                <h3 class="text-2xl font-semibold">HCS_PAYMENT</h3>
-                            </div>
-                            <div class="pixel-card p-4">
-                               <h3 class="text-2xl font-semibold">HTS_ASSET_ENGINE</h3>
-                            </div>
-                            <div class="pixel-card p-4">
-                               <h3 class="text-2xl font-semibold">AUTONOMOUS_VAULT</h3>
-                            </div>
+                        <div class="w-full max-w-lg p-4 border-2 border-black bg-white/80 backdrop-blur-sm">
+                            <p class="text-lg font-bold text-green-500 tracking-widest">[ CONSENSUS LAYER ]</p>
+                            <h3 class="text-3xl font-semibold">HEDERA_HASHGRAPH</h3>
                         </div>
-                        <div class="text-4xl">V</div>
-                         <!-- Layer 4 -->
-                        <div class="pixel-card p-6 max-w-lg mx-auto">
-                           <p class="text-lg font-bold text-green-500 tracking-widest">[ LAYER 4 ]</p>
-                           <h3 class="text-3xl font-semibold">HEDERA HASHGRAPH (TRUST_NETWORK)</h3>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -370,35 +370,49 @@
                     <h2 class="text-5xl md:text-6xl font-bold tracking-tight">ACTIVATION_SEQUENCE.LOG</h2>
                     <p class="text-2xl mt-2">// Strategic rollout for building the network.</p>
                 </div>
-                <div class="max-w-3xl mx-auto section-fade-in">
-                    <div class="relative timeline space-y-12">
-                        <!-- Phase 1 -->
-                        <div class="timeline-item relative pl-10">
-                            <div class="timeline-dot"></div>
-                            <p class="text-xl font-semibold text-green-600">PHASE 1: GENESIS (Q4 2025) [COMPLETE]</p>
-                            <h3 class="text-3xl font-bold mb-1">LAUNCH & ONBOARDING</h3>
-                            <p class="text-xl">Core contracts deployed, wallet integrated, first founding nodes onboarded.</p>
-                        </div>
-                        <!-- Phase 2 -->
-                        <div class="timeline-item relative pl-10">
-                            <div class="timeline-dot"></div>
-                            <p class="text-xl font-semibold text-green-600">PHASE 2: SYMBIOSIS (Q1-Q2 2026)</p>
-                            <h3 class="text-3xl font-bold mb-1">ECONOMIC ACTIVATION</h3>
-                            <p class="text-xl">N.O.D.E. Vault launch, adaptive lending active, first Collective Asset Organization (CAO) live.</p>
-                        </div>
-                        <!-- Phase 3 -->
-                        <div class="timeline-item relative pl-10">
-                            <div class="timeline-dot"></div>
-                            <p class="text-xl font-semibold text-green-600">PHASE 3: EXPANSION (Q3-Q4 2026)</p>
-                            <h3 class="text-3xl font-bold mb-1">NETWORK GROWTH</h3>
-                            <p class="text-xl">Rapid onboarding tools, cross-neighborhood transfers, and transition to full DAO governance.</p>
-                        </div>
-                        <!-- Phase 4 -->
-                        <div class="timeline-item relative pl-10">
-                            <div class="timeline-dot"></div>
-                             <p class="text-xl font-semibold text-green-600">PHASE 4: EMERGENCE (2027+)</p>
-                            <h3 class="text-3xl font-bold mb-1">GLOBAL FEDERATION</h3>
-                            <p class="text-xl">Autonomous inter-N.O.D.E. trade, AI optimization, and a global federation of communities.</p>
+                <div class="max-w-7xl mx-auto section-fade-in">
+                    <div class="relative">
+                        <!-- The connecting line -->
+                        <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-green-500/50 -translate-y-1/2"></div>
+                        <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-green-500/50 -translate-y-1/2 animate-pulse"></div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                            <!-- Phase 1 -->
+                            <div class="text-center pixel-card p-6 relative">
+                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-green-500 border-2 border-black rotate-45"></div>
+                                <p class="text-xl font-semibold text-green-400 mb-2 mt-4">PHASE 1</p>
+                                <h3 class="text-2xl font-bold mb-2">GENESIS</h3>
+                                <p class="text-lg mb-2">(Q4 2025)</p>
+                                <p class="text-base">Core contracts deployed, wallet integrated, first founding nodes onboarded.</p>
+                                <div class="mt-4"><span class="py-1 px-3 bg-green-500 text-black text-sm font-bold">COMPLETE</span></div>
+                            </div>
+                            <!-- Phase 2 -->
+                            <div class="text-center pixel-card p-6 relative">
+                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-gray-700 border-2 border-black rotate-45"></div>
+                                <p class="text-xl font-semibold text-green-400 mb-2 mt-4">PHASE 2</p>
+                                <h3 class="text-2xl font-bold mb-2">SYMBIOSIS</h3>
+                                <p class="text-lg mb-2">(Q1-Q2 2026)</p>
+                                <p class="text-base">N.O.D.E. Vault launch, adaptive lending active, first CAO live.</p>
+                                <div class="mt-4"><span class="py-1 px-3 bg-gray-700 text-white text-sm font-bold">UPCOMING</span></div>
+                            </div>
+                            <!-- Phase 3 -->
+                            <div class="text-center pixel-card p-6 relative">
+                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-gray-700 border-2 border-black rotate-45"></div>
+                                <p class="text-xl font-semibold text-green-400 mb-2 mt-4">PHASE 3</p>
+                                <h3 class="text-2xl font-bold mb-2">EXPANSION</h3>
+                                <p class="text-lg mb-2">(Q3-Q4 2026)</p>
+                                <p class="text-base">Rapid onboarding tools, cross-neighborhood transfers, and transition to full DAO governance.</p>
+                                <div class="mt-4"><span class="py-1 px-3 bg-gray-700 text-white text-sm font-bold">UPCOMING</span></div>
+                            </div>
+                            <!-- Phase 4 -->
+                            <div class="text-center pixel-card p-6 relative">
+                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-gray-700 border-2 border-black rotate-45"></div>
+                                <p class="text-xl font-semibold text-green-400 mb-2 mt-4">PHASE 4</p>
+                                <h3 class="text-2xl font-bold mb-2">EMERGENCE</h3>
+                                <p class="text-lg mb-2">(2027+)</p>
+                                <p class="text-base">Autonomous inter-N.O.D.E. trade, AI optimization, and a global federation of communities.</p>
+                                <div class="mt-4"><span class="py-1 px-3 bg-gray-700 text-white text-sm font-bold">FUTURE</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -471,10 +485,12 @@
     // Preloader
     const preloader = document.getElementById('preloader');
     window.addEventListener('load', () => {
-        preloader.style.opacity = '0';
         setTimeout(() => {
-            preloader.style.display = 'none';
-        }, 500);
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 1000); // Match CSS transition time
+        }, 2000); // Wait 2 seconds before starting fade out
     });
 
 </script>
