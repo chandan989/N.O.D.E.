@@ -13,11 +13,10 @@ export const useWalletStore = create<WalletStore>((set, get) => ({
   connect: async () => {
     set({ isLoading: true });
     try {
-      const { accountId, balance } = await connectWallet();
+      const { accountId } = await connectWallet();
       set({
         isConnected: true,
         accountId,
-        balance,
         isLoading: false,
       });
     } catch (error) {

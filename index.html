@@ -1,465 +1,348 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N.O.D.E. PROTOCOL</title>
+    <title>N.O.D.E. | Neighborhood Operated Decentralized Economy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/png" href="logo.svg">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%2300FF00' d='M50,5 L95,27.5 L95,72.5 L50,95 L5,72.5 L5,27.5 Z M50,15 L15,33.1 V66.9 L50,85 L85,66.9 V33.1 Z M50,25 L25,38.8 V61.2 L50,75 L75,61.2 V38.8 Z'/%3E%3C/svg%3E">
 
+    <style>
         :root {
-            --primary-color: #00FF7F; /* SpringGreen */
-            --secondary-color: #00FFFF; /* Cyan */
-            --background-color: #0A0A0A;
-            --glow-color: #00FF7F;
-            --panel-bg-color: rgba(0, 25, 0, 0.2);
+            --pixel-green: #00FF00;
+            --pixel-black: #000000;
+            --pixel-white: #FFFFFF;
+            --pixel-bg: #F8F9FA;
         }
 
         body {
-            font-family: 'Fira Code', monospace;
-            background-color: var(--background-color);
-            color: var(--primary-color);
-            text-shadow: 0 0 3px rgba(0, 255, 127, 0.5);
-            overflow-x: hidden;
-            background-image:
-                    linear-gradient(rgba(0, 255, 127, 0.03) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 255, 127, 0.03) 1px, transparent 1px);
-            background-size: 2.5rem 2.5rem;
-            animation: pan-background 90s linear infinite;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        @keyframes pan-background {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
-        }
-
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 4px;
-            z-index: 100;
-            pointer-events: none;
-            animation: flicker 0.1s infinite;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 0.95; }
-            50% { opacity: 0.92; }
-            100% { opacity: 0.95; }
+            font-family: 'VT323', monospace;
+            background-color: var(--pixel-white);
+            color: var(--pixel-black);
+            -webkit-font-smoothing: none; /* For sharper pixel font rendering */
+            -moz-osx-font-smoothing: grayscale; /* For sharper pixel font rendering */
         }
 
         .text-glow {
-            color: var(--glow-color);
-            text-shadow: 0 0 4px var(--glow-color), 0 0 10px var(--glow-color);
+            color: var(--pixel-green);
+            text-shadow: 0 0 5px var(--pixel-green), 0 0 10px rgba(0, 255, 0, 0.7);
         }
 
-        .window-panel {
-            border: 1px solid rgba(0, 255, 127, 0.2);
-            padding: 1.5rem;
-            background: var(--panel-bg-color);
-            backdrop-filter: blur(5px);
-            box-shadow: inset 0 0 20px rgba(0, 255, 127, 0.1), 0 0 20px rgba(0, 255, 127, 0.1);
-            position: relative;
-            transition: all 0.3s ease-in-out;
+        .pixel-card {
+            background: var(--pixel-bg);
+            border: 2px solid var(--pixel-black);
+            transition: all 0.2s ease-in-out;
         }
 
-        .window-panel:hover {
-            transform: translateY(-5px);
-            box-shadow: inset 0 0 25px rgba(0, 255, 127, 0.15), 0 0 25px rgba(0, 255, 127, 0.2);
-            border-color: rgba(0, 255, 127, 0.4);
+        .pixel-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 4px 4px 0 0 var(--pixel-green);
         }
 
-        .window-panel::before, .window-panel::after {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border-color: var(--secondary-color);
-            border-style: solid;
-            transition: all 0.3s ease-in-out;
-        }
-        .window-panel::before {
-            top: -1px;
-            left: -1px;
-            border-width: 2px 0 0 2px;
-        }
-        .window-panel::after {
-            bottom: -1px;
-            right: -1px;
-            border-width: 0 2px 2px 0;
-        }
-        .window-panel:hover::before {
-            transform: translate(-3px, -3px);
-        }
-        .window-panel:hover::after {
-            transform: translate(3px, 3px);
-        }
-
-        .window-panel-title {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-            padding: 0.2rem 0.75rem;
-            display: inline-flex;
-            align-items: center;
-            text-shadow: none;
-            margin-top: -2.7rem;
-            margin-left: -0.5rem;
-            margin-bottom: 1rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            clip-path: polygon(0 0, 95% 0, 100% 100%, 0% 100%);
-        }
-
-        .btn-retro {
-            background: transparent;
-            color: var(--secondary-color);
-            text-shadow: none;
+        .btn-pixel {
+            background-color: var(--pixel-white);
+            color: var(--pixel-black);
             padding: 0.75rem 1.5rem;
-            border: 1px solid var(--secondary-color);
-            box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.2);
+            border: 2px solid var(--pixel-black);
+            box-shadow: 4px 4px 0 0 var(--pixel-black);
             transition: all 0.2s ease-in-out;
             text-transform: uppercase;
-            display: inline-block;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-        }
-        .btn-retro:hover {
-            background: var(--secondary-color);
-            color: var(--background-color);
-            box-shadow: 0 0 20px var(--secondary-color);
-            text-shadow: none;
         }
 
-        .btn-retro:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            border-color: rgba(0, 255, 255, 0.3);
-            color: rgba(0, 255, 255, 0.5);
+        .btn-pixel:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 var(--pixel-black);
+            background-color: var(--pixel-green);
         }
 
-        .btn-retro:disabled:hover {
-            background: transparent;
-            box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.2);
+        .btn-pixel-primary {
+             background-color: var(--pixel-green);
+             box-shadow: 4px 4px 0 0 var(--pixel-black);
         }
 
-        @keyframes blink {
-            50% { opacity: 0; }
+        .btn-pixel-primary:hover {
+             background-color: var(--pixel-white);
         }
 
-        .blinking-cursor {
-            animation: blink 1s step-end infinite;
-        }
 
-        #bootloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            color: var(--primary-color);
-            font-family: 'Fira Code', monospace;
-            z-index: 9999;
-            padding: 1rem;
-            overflow-y: hidden;
-            display: flex; /* Added for centering */
-            flex-direction: column; /* Added for centering */
-            justify-content: center; /* Added for centering */
-            align-items: center; /* Added for centering */
-        }
-        #main-content {
-            transition: opacity 0.5s ease-in;
-            visibility: hidden; /* Initially hidden */
+        .section-fade-in {
             opacity: 0;
-            width: 100%;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
-        /* Footer link styles */
-        footer a {
-            transition: all 0.2s ease;
-            padding: 0.25rem 0.5rem;
-        }
-        footer a:hover {
-            background: var(--primary-color);
-            color: var(--background-color);
-            text-shadow: none;
+        .section-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @media screen and (max-width: 768px) {
-            .window-panel {
-                padding: 1rem;
-            }
-            .window-panel-title {
-                margin-top: -2.2rem;
-                margin-left: -0.25rem;
-                font-size: 0.9rem;
-            }
-            .btn-retro {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-            }
-            .section-divider pre {
-                transform: scale(0.8);
-            }
-            .ascii-logo {
-                display: none;
-            }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0.75rem;
+            height: 100%;
+            width: 2px;
+            background: var(--pixel-black);
         }
+
+        .timeline-dot {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.75rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: var(--pixel-black);
+            transform: translateX(-50%);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background-color: var(--pixel-green);
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        /* Background grid pattern */
+        .bg-grid-pattern {
+            background-image:
+                linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
+            background-size: 2rem 2rem;
+        }
+
     </style>
 </head>
-<body>
+<body class="antialiased text-2xl">
 
-<div id="bootloader">
-    <img src="logo.png" alt="N.O.D.E. Protocol Logo" class="w-24 h-24 sm:w-32 sm:h-32 mb-8 text-glow">
-    <div class="w-full max-w-3xl px-2 sm:px-4">
-        <div id="boot-log" class="text-base sm:text-xl h-48 overflow-y-hidden text-left"></div>
-        <div id="loader-container" class="text-base sm:text-xl mt-4"></div>
-    </div>
-    <span class="blinking-cursor text-xl mt-4">█</span>
-</div>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between border-2 border-black bg-white px-6 py-3">
+                <a href="#" class="flex items-center gap-2">
+                    <div class="w-8 h-8 flex items-center justify-center bg-black text-green-400 font-bold text-3xl">N</div>
+                    <span class="text-3xl font-bold tracking-wider">N.O.D.E.</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="#protocols" class="hover:text-green-500 transition-colors">PROTOCOLS</a>
+                    <a href="#architecture" class="hover:text-green-500 transition-colors">ARCHITECTURE</a>
+                    <a href="#roadmap" class="hover:text-green-500 transition-colors">ROADMAP</a>
+                </nav>
+                <a href="#join" class="hidden md:block btn-pixel !py-2 !px-5">JOIN_NETWORK</a>
+            </div>
+        </div>
+    </header>
 
-<div id="main-content">
-    <div class="container mx-auto px-4 sm:px-6 py-8 text-lg sm:text-xl">
+    <main class="overflow-x-hidden">
 
-        <!-- Header Section -->
-        <header class="py-12 sm:py-16 md:py-24">
-            <div class="window-panel max-w-5xl mx-auto">
-                <div class="window-panel-title"><img src="logo.svg" alt="N.O.D.E. Protocol Logo" class="h-5 sm:h-6 mr-2">SYSTEM.BOOT</div>
-                <div class="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
-                    <div class="text-left">
-                        <h1 class="text-4xl sm:text-5xl md:text-7xl uppercase text-glow mb-4" data-type-effect>
-                            N.O.D.E. PROTOCOL
-                        </h1>
-                        <p class="text-lg sm:text-xl md:text-2xl mt-2" data-type-effect>
-                            Neighborhood Operated Decentralized Economy
-                        </p>
-                        <p class="mt-6 text-base sm:text-lg md:text-xl" data-type-effect>
-                            "The Neighborhood is the Network. The Network is the Future."
-                        </p>
-                        <div class="mt-8" data-type-effect>
-                            <a href="#join" class="btn-retro text-lg sm:text-xl">[ INITIATE CONNECTION ]</a>
-                        </div>
-                    </div>
-                    <div class="hidden md:block">
-                            <pre class="ascii-logo text-glow" style="font-size: 0.4rem; line-height: 1.1;">
-              _____                   _______                   _____                    _____
-             /\    \                 /::\    \                 /\    \                  /\    \
-            /::\____\               /::::\    \               /::\    \                /::\    \
-           /::::|   |              /::::::\    \             /::::\    \              /::::\    \
-          /:::::|   |             /::::::::\    \           /::::::\    \            /::::::\    \
-         /::::::|   |            /:::/~~\:::\    \         /:::/\:::\    \          /:::/\:::\    \
-        /:::/|::|   |           /:::/    \:::\    \       /:::/  \:::\    \        /:::/__\:::\    \
-       /:::/ |::|   |          /:::/    / \:::\    \     /:::/    \:::\    \      /::::\   \:::\    \
-      /:::/  |::|   | _____   /:::/____/   \:::\____\   /:::/    / \:::\    \    /::::::\   \:::\    \
-     /:::/   |::|   |/\    \ |:::|    |     |:::|    | /:::/    /   \:::\ ___\  /:::/\:::\   \:::\    \
-    /:: /    |::|   /::\____\|:::|____|     |:::|    |/:::/____/     \:::|    |/:::/__\:::\   \:::\____\
-    \::/    /|::|  /:::/    / \:::\    \   /:::/    / \:::\    \     /:::|____|\:::\   \:::\   \::/    /
-     \/____/ |::| /:::/    /   \:::\    \ /:::/    /   \:::\    \   /:::/    /  \:::\   \:::\   \/____/
-             |::|/:::/    /     \:::\    /:::/    /     \:::\    \ /:::/    /    \:::\   \:::\    \
-             |::::::/    /       \:::\__/:::/    /       \:::\    /:::/    /      \:::\   \:::\____\
-             |:::::/    /         \::::::::/    /         \:::\  /:::/    /        \:::\   \::/    /
-             |::::/    /           \::::::/    /           \:::\/:::/    /          \:::\   \/____/
-             /:::/    /             \::::/    /             \::::::/    /            \:::\    \
-            /:::/    /               \::/____/               \::::/    /              \:::\____\
-            \::/    /                 ~~                      \::/____/                \::/    /
-             \/____/                                           ~~                       \/____/
-
-                            </pre>
-                        <div class="mt-4 text-sm sm:text-base md:text-lg text-center" data-type-effect>
-                            &gt; TRANSMISSION STATUS: DECRYPTED // CONNECTION ESTABLISHED
-                        </div>
-                    </div>
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 bg-grid-pattern">
+            <div class="container mx-auto px-6 text-center z-10">
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-4">
+                    NEIGHBORHOOD <br> IS THE <span class="text-glow">NETWORK</span>.
+                </h1>
+                <p class="max-w-3xl mx-auto md:text-3xl mb-8">
+                    > A protocol for a Neighborhood Operated Decentralized Economy, built on Hedera Hashgraph.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#join" class="btn-pixel btn-pixel-primary">INITIATE_CONNECTION</a>
+                    <a href="#protocols" class="btn-pixel">EXPLORE_PROTOCOLS</a>
                 </div>
             </div>
-        </header>
-
-        <div class="section-divider py-8 sm:py-12">
-            <pre>==================================</pre>
-        </div>
-
-
-        <!-- System Directive Section -->
-        <section id="directive" class="max-w-4xl mx-auto text-left py-8 sm:py-12">
-            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-6" data-type-effect>&gt; SYSTEM_DIRECTIVE.EXE</h2>
-            <p class="leading-relaxed" data-type-effect>
-                INITIATING BOOT SEQUENCE... OK.
-            </p>
-            <p class="leading-relaxed mt-2" data-type-effect>
-                For too long, the economic lifeblood of our communities has been drained by centralized megacorps. The promise of a connected world delivered only extraction and control.
-            </p>
-            <p class="leading-relaxed mt-4 font-bold" data-type-effect>
-                N.O.D.E. severs those chains. It is a living economic organism for self-sovereign communities, built on the quantum-efficient Hedera Hashgraph.
-            </p>
-            <p class="leading-relaxed mt-4" data-type-effect>
-                EXECUTION COMPLETE.
-            </p>
         </section>
 
-        <div class="section-divider py-8 sm:py-12">
-            <pre>==================================</pre>
-        </div>
+        <!-- Directive Section -->
+        <section id="directive" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto text-center section-fade-in pixel-card p-8">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">RECLAIM_YOUR_ECONOMY.EXE</h2>
+                    <p class="text-2xl">
+                        Centralized megacorps have siphoned our communities' lifeblood. N.O.D.E. severs those chains. It’s a living economic organism for self-sovereign communities to build, share, and prosper together.
+                    </p>
+                </div>
+            </div>
+        </section>
+
 
         <!-- Core Protocols Section -->
-        <section id="protocols" class="py-8 sm:py-12">
-            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-8 sm:mb-12 text-center" data-type-effect>&gt; DIR /CORE_PROTOCOLS</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                <!-- Protocol 1 -->
-                <div class="window-panel">
-                    <div class="window-panel-title">PAYMENTS.DLL</div>
-                    <h3 class="text-xl sm:text-2xl mb-2" data-type-effect>GHOST PAYMENTS</h3>
-                    <p data-type-effect>Value transfer at the speed of thought. Instant, direct, and virtually cost-free transactions that keep value circulating locally.</p>
+        <section id="protocols" class="py-20 md:py-24 bg-gray-100 border-y-2 border-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16 section-fade-in">
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-tight">CORE_PROTOCOLS</h2>
+                    <p class="text-2xl mt-2">// Foundational pillars of the N.O.D.E. ecosystem.</p>
                 </div>
-                <!-- Protocol 2 -->
-                <div class="window-panel">
-                    <div class="window-panel-title">ASSETS.SYS</div>
-                    <h3 class="text-xl sm:text-2xl mb-2" data-type-effect>COLLECTIVE ASSETS</h3>
-                    <p data-type-effect>From scarcity to shared abundance. Tokenize real-world assets, fractionalize ownership, and democratize access to capital goods.</p>
-                </div>
-                <!-- Protocol 3 -->
-                <div class="window-panel">
-                    <div class="window-panel-title">VAULT.BAT</div>
-                    <h3 class="text-xl sm:text-2xl mb-2" data-type-effect>AUTONOMOUS VAULT</h3>
-                    <p data-type-effect>The community becomes the bank. Community-powered liquidity pools offering fair yields and accessible capital for entrepreneurs.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Protocol 1 -->
+                    <div class="pixel-card p-8 section-fade-in" style="transition-delay: 100ms;">
+                         <h3 class="text-4xl font-bold mb-2">GHOST_PAYMENTS</h3>
+                        <p class="text-xl">Instant, direct, and virtually cost-free transactions that keep value circulating within the neighborhood.</p>
+                    </div>
+                    <!-- Protocol 2 -->
+                    <div class="pixel-card p-8 section-fade-in" style="transition-delay: 200ms;">
+                        <h3 class="text-4xl font-bold mb-2">COLLECTIVE_ASSETS</h3>
+                        <p class="text-xl">Tokenize real-world assets, fractionalize ownership, and democratize community access to capital goods.</p>
+                    </div>
+                    <!-- Protocol 3 -->
+                    <div class="pixel-card p-8 section-fade-in" style="transition-delay: 300ms;">
+                       <h3 class="text-4xl font-bold mb-2">AUTONOMOUS_VAULT</h3>
+                        <p class="text-xl">The community becomes the bank. Powered by liquidity pools offering fair yields and capital for entrepreneurs.</p>
+                    </div>
                 </div>
             </div>
         </section>
-
-        <div class="section-divider py-8 sm:py-12">
-            <pre>==================================</pre>
-        </div>
 
         <!-- Neural Architecture Section -->
-        <section id="architecture" class="py-8 sm:py-12">
-            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-8 sm:mb-12 text-center" data-type-effect>&gt; VIEW ARCHITECTURE.TXT</h2>
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex flex-col items-center space-y-8">
-
-                    <!-- Layer 1 -->
-                    <div class="window-panel w-full max-w-lg text-center">
-                        <div class="window-panel-title">INTERFACE LAYER</div>
-                        <h3 class="text-xl sm:text-2xl" data-type-effect>SOCIAL FABRIC</h3>
-                        <p class="text-sm opacity-75" data-type-effect>(User Agents)</p>
-                    </div>
-
-                    <div class="text-cyan-400 text-2xl transform rotate-90">»</div>
-
-                    <!-- Layer 2 -->
-                    <div class="window-panel w-full max-w-lg text-center">
-                        <div class="window-panel-title">LOGIC DAEMONS</div>
-                        <h3 class="text-xl sm:text-2xl" data-type-effect>N.O.D.E. CORE</h3>
-                        <p class="text-sm opacity-75" data-type-effect>(Smart Contracts)</p>
-                    </div>
-
-                    <div class="text-cyan-400 text-2xl transform rotate-90">»</div>
-
-                    <!-- Layer 3 -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full max-w-5xl">
-                        <div class="window-panel text-center">
-                            <div class="window-panel-title">PAYMENTS.DLL</div>
-                            <h3 class="text-lg sm:text-xl" data-type-effect>HCS PAYMENT</h3>
-                            <p class="text-sm opacity-75" data-type-effect>PROTOCOL</p>
+        <section id="architecture" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16 section-fade-in">
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-tight">SYSTEM_ARCHITECTURE</h2>
+                    <p class="text-2xl mt-2">// Multi-layered design for security, speed, and decentralization.</p>
+                </div>
+                <div class="max-w-5xl mx-auto section-fade-in">
+                    <div class="space-y-4 text-center">
+                        <!-- Layer 1 -->
+                        <div class="pixel-card p-6 max-w-lg mx-auto">
+                            <p class="text-lg font-bold text-green-500 tracking-widest">[ LAYER 1 ]</p>
+                            <h3 class="text-3xl font-semibold">SOCIAL FABRIC (USER AGENTS)</h3>
                         </div>
-                        <div class="window-panel text-center">
-                            <div class="window-panel-title">ASSETS.SYS</div>
-                            <h3 class="text-lg sm:text-xl" data-type-effect>HTS ASSET ENGINE</h3>
-                            <p class="text-sm opacity-75" data-type-effect>(Tokenization)</p>
+                        <div class="text-4xl">V</div>
+                        <!-- Layer 2 -->
+                        <div class="pixel-card p-6 max-w-lg mx-auto">
+                           <p class="text-lg font-bold text-green-500 tracking-widest">[ LAYER 2 ]</p>
+                            <h3 class="text-3xl font-semibold">N.O.D.E. CORE (SMART CONTRACTS)</h3>
                         </div>
-                        <div class="window-panel text-center">
-                            <div class="window-panel-title">VAULT.BAT</div>
-                            <h3 class="text-lg sm:text-xl" data-type-effect>AUTONOMOUS VAULT</h3>
-                            <p class="text-sm opacity-75" data-type-effect>(Lending Protocol)</p>
+                         <div class="text-4xl">V</div>
+                        <!-- Layer 3 -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="pixel-card p-4">
+                                <h3 class="text-2xl font-semibold">HCS_PAYMENT</h3>
+                            </div>
+                            <div class="pixel-card p-4">
+                               <h3 class="text-2xl font-semibold">HTS_ASSET_ENGINE</h3>
+                            </div>
+                            <div class="pixel-card p-4">
+                               <h3 class="text-2xl font-semibold">AUTONOMOUS_VAULT</h3>
+                            </div>
+                        </div>
+                        <div class="text-4xl">V</div>
+                         <!-- Layer 4 -->
+                        <div class="pixel-card p-6 max-w-lg mx-auto">
+                           <p class="text-lg font-bold text-green-500 tracking-widest">[ LAYER 4 ]</p>
+                           <h3 class="text-3xl font-semibold">HEDERA HASHGRAPH (TRUST_NETWORK)</h3>
                         </div>
                     </div>
-
-                    <div class="text-cyan-400 text-2xl transform rotate-90">»</div>
-
-                    <!-- Layer 4 -->
-                    <div class="window-panel w-full max-w-lg text-center">
-                        <div class="window-panel-title">CONSENSUS LAYER</div>
-                        <h3 class="text-xl sm:text-2xl" data-type-effect>HEDERA HASHGRAPH</h3>
-                        <p class="text-sm opacity-75" data-type-effect>(Trust Network)</p>
-                    </div>
-
                 </div>
             </div>
         </section>
 
-        <div class="section-divider py-8 sm:py-12">
-            <pre>==================================</pre>
-        </div>
-
-        <!-- Activation Sequence -->
-        <section id="roadmap" class="py-8 sm:py-12">
-            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-8 sm:mb-12 text-center" data-type-effect>&gt; READ ROADMAP.LOG</h2>
-            <div class="max-w-3xl mx-auto space-y-8">
-                <!-- Phase 1 -->
-                <div class="log-item">
-                    <h3 class="text-xl sm:text-2xl" data-type-effect>PHASE 1: GENESIS (Q4 2025) - COMPLETE</h3>
-                    <p class="mt-2 text-base sm:text-lg" data-type-effect>Core contracts deployed. Wallet integrated. First nodes onboarded.</p>
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="py-20 md:py-24 border-y-2 border-black bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16 section-fade-in">
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-tight">ACTIVATION_SEQUENCE.LOG</h2>
+                    <p class="text-2xl mt-2">// Strategic rollout for building the network.</p>
                 </div>
-                <!-- Phase 2 -->
-                <div class="log-item">
-                    <h3 class="text-xl sm:text-2xl" data-type-effect>PHASE 2: SYMBIOSIS (Q1-Q2 2026)</h3>
-                    <p class="mt-2 text-base sm:text-lg" data-type-effect>N.O.D.E. Vault launch. Adaptive lending active. First CAO live.</p>
-                </div>
-                <!-- Phase 3 -->
-                <div class="log-item">
-                    <h3 class="text-xl sm:text-2xl" data-type-effect>PHASE 3: EXPANSION (Q3-Q4 2026)</h3>
-                    <p class="mt-2 text-base sm:text-lg" data-type-effect>Network expansion. Cross-neighborhood transfer. DAO transition.</p>
-                </div>
-                <!-- Phase 4 -->
-                <div class="log-item">
-                    <h3 class="text-xl sm:text-2xl" data-type-effect>PHASE 4: EMERGENCE (2027+)</h3>
-                    <p class="mt-2 text-base sm:text-lg" data-type-effect>Autonomous inter-N.O.D.E. trade. AI optimization. Global federation.</p>
+                <div class="max-w-3xl mx-auto section-fade-in">
+                    <div class="relative timeline space-y-12">
+                        <!-- Phase 1 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="timeline-dot"></div>
+                            <p class="text-xl font-semibold text-green-600">PHASE 1: GENESIS (Q4 2025) [COMPLETE]</p>
+                            <h3 class="text-3xl font-bold mb-1">LAUNCH & ONBOARDING</h3>
+                            <p class="text-xl">Core contracts deployed, wallet integrated, first founding nodes onboarded.</p>
+                        </div>
+                        <!-- Phase 2 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="timeline-dot"></div>
+                            <p class="text-xl font-semibold text-green-600">PHASE 2: SYMBIOSIS (Q1-Q2 2026)</p>
+                            <h3 class="text-3xl font-bold mb-1">ECONOMIC ACTIVATION</h3>
+                            <p class="text-xl">N.O.D.E. Vault launch, adaptive lending active, first Collective Asset Organization (CAO) live.</p>
+                        </div>
+                        <!-- Phase 3 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="timeline-dot"></div>
+                            <p class="text-xl font-semibold text-green-600">PHASE 3: EXPANSION (Q3-Q4 2026)</p>
+                            <h3 class="text-3xl font-bold mb-1">NETWORK GROWTH</h3>
+                            <p class="text-xl">Rapid onboarding tools, cross-neighborhood transfers, and transition to full DAO governance.</p>
+                        </div>
+                        <!-- Phase 4 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="timeline-dot"></div>
+                             <p class="text-xl font-semibold text-green-600">PHASE 4: EMERGENCE (2027+)</p>
+                            <h3 class="text-3xl font-bold mb-1">GLOBAL FEDERATION</h3>
+                            <p class="text-xl">Autonomous inter-N.O.D.E. trade, AI optimization, and a global federation of communities.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-
-        <div class="section-divider py-8 sm:py-12">
-            <pre>==================================</pre>
-        </div>
 
         <!-- Call to Action -->
-        <section id="join" class="text-center py-8 sm:py-12">
-            <h2 class="text-3xl sm:text-4xl uppercase text-glow mb-6" data-type-effect>&gt; JOIN.EXE</h2>
-            <p class="max-w-2xl mx-auto mb-8 sm:mb-10" data-type-effect>This is not a company. This is a movement. We summon the architects of tomorrow, the digital artisans, the decentralized dreamers.</p>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-6">
-                <a href="#" class="btn-retro">[ WHITELIST ]</a>
-                <a href="https://github.com/chandan989/N.O.D.E." target="_blank" class="btn-retro">[ VIEW SOURCE ]</a>
-                <a href="#" class="btn-retro">[ REGISTER NODE ]</a>
+        <section id="join" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center section-fade-in">
+                <h2 class="text-5xl md:text-6xl font-bold mb-4 tracking-tight">JOIN_THE_MOVEMENT</h2>
+                <p class="max-w-2xl mx-auto mb-8 text-2xl">This is a paradigm shift. We call the architects of tomorrow, the digital artisans, the decentralized dreamers to build with us.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#" class="btn-pixel btn-pixel-primary">GET_WHITELISTED</a>
+                    <a href="#" class="btn-pixel">REGISTER_A_NODE</a>
+                </div>
             </div>
         </section>
-    </div>
+
+    </main>
 
     <!-- Footer -->
-    <footer class="text-center py-6 sm:py-8 mt-8 sm:mt-12 border-t-2 border-amber-400">
-        <p class="mb-4 text-lg sm:text-xl">> Powered by Hedera Hashgraph</p>
-        <div class="flex justify-center space-x-4 sm:space-x-6 text-lg sm:text-xl">
-            <a href="#">Discord</a>
-            <a href="https://github.com/chandan989/N.O.D.E." target="_blank">GitHub</a>
-            <a href="#">Whitepaper</a>
+    <footer class="border-t-2 border-black mt-16 bg-white">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                     <p class="text-3xl font-semibold">N.O.D.E. PROTOCOL</p>
+                     <p class="text-xl">// Forged by the collective. Owned by the community.</p>
+                </div>
+                <div class="flex gap-6 text-xl">
+                    <a href="#" class="hover:text-green-500 transition-colors">DISCORD</a>
+                    <a href="https://github.com/chandan989/N.O.D.E." target="_blank" class="hover:text-green-500 transition-colors">GITHUB</a>
+                    <a href="#" class="hover:text-green-500 transition-colors">WHITEPAPER</a>
+                </div>
+            </div>
+             <div class="text-center mt-8 text-lg">
+                 <p>Powered by <a href="https://hedera.com/" target="_blank" rel="noopener noreferrer" class="hover:text-green-500">Hedera Hashgraph</a></p>
+            </div>
         </div>
-        <p class="text-base text-gray-500 mt-6">> Forged by the collective. Owned by the community.</p>
     </footer>
-</div>
 
-<script src="main.js"></script>
+<script>
+    // Simple fade-in on scroll observer
+    const sections = document.querySelectorAll('.section-fade-in');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // Navbar solid background on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+            navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            navbar.style.backdropFilter = 'blur(5px)';
+        } else {
+            navbar.style.backgroundColor = 'transparent';
+            navbar.style.backdropFilter = 'none';
+        }
+    });
+
+</script>
 </body>
 </html>
+

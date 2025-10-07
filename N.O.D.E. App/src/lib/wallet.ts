@@ -1,39 +1,46 @@
-// Wallet connection logic placeholder
-// This will be implemented with HashConnect SDK
+import { WalletConnectModal } from "@walletconnect/modal";
+import { SessionTypes } from "@walletconnect/types";
 
 export interface WalletState {
   isConnected: boolean;
-  accountId: string | null;
-  balance: string | null;
+  accountId: string;
+  balance: string;
   isLoading: boolean;
 }
 
 export const initialWalletState: WalletState = {
   isConnected: false,
-  accountId: null,
-  balance: null,
+  accountId: "",
+  balance: "",
   isLoading: false,
 };
 
-// Mock wallet functions for now - will be replaced with actual HashConnect integration
-export const connectWallet = async (): Promise<{ accountId: string; balance: string }> => {
-  // Simulate connection delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  // Mock data for development
-  return {
-    accountId: "0.0.123456",
-    balance: "1,234.56"
-  };
+const projectId = "YOUR_PROJECT_ID"; // Replace with your actual project ID
+
+const modal = new WalletConnectModal({
+  projectId,
+  chains: ["hedera:testnet"],
+});
+
+export const connectWallet = async (): Promise<{ accountId: string }> => {
+  const session = await modal.connect({
+    requiredNamespaces: {
+      hedera: {
+        methods: ["hedera_signAndExecuteTransaction", "hedera_signMessage"],
+        chains: ["hedera:testnet"],
+        events: [],
+      },
+    },
+  });
+
+  const accountId = session.namespaces.hedera.accounts[0].split(":")[2];
+
+  // Note: WalletConnect does not directly provide account balance.
+  // You would need to query a mirror node or use another service to get the balance.
+
+  return { accountId };
 };
 
-export const disconnectWallet = async (): Promise<void> => {
-  // Simulate disconnection
-  await new Promise(resolve => setTimeout(resolve, 500));
-};
-
-export const getBalance = async (accountId: string): Promise<string> => {
-  // Mock balance fetch
-  await new Promise(resolve => setTimeout(resolve, 500));
-  return "1,234.56";
+export const disconnectWallet = async () => {
+  await modal.disconnect();
 };
