@@ -1,14 +1,13 @@
-<div align="center">
-
 
 
 ```ascii
 █▄░█ █▀█ █▀▄ █▀▀   █▀█ █▀█ █▀█ ▀█▀ █▀█ █▀▀ █▀█ █░░
 █░▀█ █▄█ █▄▀ █▄▄   █▀▀ █▀▄ █▄█ ░█░ █▄█ █▄▄ █▄█ █▄▄
 ```
-**Neighborhood Operated Decentralized Economy on Hedera**
 
 <img src="./logo.png" alt="Red Médica Logo" width="100" />
+
+**Neighborhood Operated Decentralized Economy on Hedera**
 
 ```
 TRANSMISSION STATUS: DECRYPTED
@@ -17,7 +16,6 @@ NETWORK STATUS: AWAKENING
 ```
 
 ---
-</div>
 ## SYSTEM DIRECTIVE: AWAKEN THE LOCAL SYNAPSE
 
 For too long, the economic lifeblood of our communities has been drained by centralized megacorps, leaving local networks fragmented and powerless. The promise of a connected world delivered only extraction and control.
