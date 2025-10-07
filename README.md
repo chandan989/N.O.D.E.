@@ -1,6 +1,8 @@
 # N.O.D.E. PROTOCOL
 **Neighborhood Operated Decentralized Economy on Hedera**
 
+<img src="./logo.png" alt="Red Médica Logo" width="100" />
+
 ```
 TRANSMISSION STATUS: DECRYPTED
 CHRONOMARK: 2025.09.17 :: GENESIS INITIALIZED
