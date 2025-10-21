@@ -1,34 +1,36 @@
 import React from 'react';
-import { Progress } from "@/components/ui/progress";
-import { WindowPanel } from '@/components/ui/window-panel';
 
-// Mock data for community assets based on UserDAO.tsx
 const communityAssets = [
   { name: 'Community Solar Generator', progress: 75 },
   { name: 'Local WiFi Mesh Network', progress: 45 },
   { name: 'Tool Lending Library', progress: 90 },
 ];
 
+const AssetProgress: React.FC<{ name: string; progress: number }> = ({ name, progress }) => (
+    <div>
+      <div className="flex justify-between items-center mb-2">
+        <p className="font-bold text-lg">{name}</p>
+        <p className="text-sm font-bold text-black">{progress}%</p>
+      </div>
+      <div className="w-full bg-gray-200 border-2 border-black">
+        <div style={{ width: `${progress}%`}} className="h-4 bg-black"></div>
+      </div>
+    </div>
+);
+
 const UserAssetGlimpse: React.FC = () => {
   return (
-    <WindowPanel title="Community Assets">
-      <div className="p-4">
-        <div className="space-y-4">
-          {communityAssets.map((asset) => (
-            <div key={asset.name}>
-              <div className="flex justify-between items-center mb-1">
-                <p className="font-semibold">{asset.name}</p>
-                <p className="text-sm text-primary">{asset.progress}% Funded</p>
-              </div>
-              <Progress value={asset.progress} />
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-4">
-          <a href="/community-assets" className="text-primary hover:text-glow font-bold">Explore Assets &gt;</a>
-        </div>
+    <div className="pixel-card p-6">
+      <h3 className="text-3xl font-bold mb-4 text-black">COMMUNITY_ASSETS</h3>
+      <div className="space-y-5 mb-6">
+        {communityAssets.map((asset) => (
+          <AssetProgress key={asset.name} name={asset.name} progress={asset.progress} />
+        ))}
       </div>
-    </WindowPanel>
+      <div className="text-center">
+        <a href="/dashboard/dao" className="btn-pixel">EXPLORE_ASSETS</a>
+      </div>
+    </div>
   );
 };
 

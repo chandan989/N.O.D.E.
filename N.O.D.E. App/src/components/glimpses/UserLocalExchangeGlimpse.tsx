@@ -1,7 +1,5 @@
 import React from 'react';
-import { WindowPanel } from '@/components/ui/window-panel';
 
-// Mock data for the glimpse
 const mockPortfolio = {
   portfolioValue: '2,345.67 HBAR',
   totalInvestment: '2,000.00 HBAR',
@@ -9,29 +7,30 @@ const mockPortfolio = {
   gainLossPercentage: '+17.28%',
 };
 
+const PortfolioItem: React.FC<{ label: string; value: string; valueClass?: string }> = ({ label, value, valueClass }) => (
+    <div className="flex justify-between items-baseline py-2 border-b-2 border-dashed border-black/20">
+      <span className="text-gray-500 uppercase text-sm">{label}</span>
+      <span className={`font-bold text-lg ${valueClass}`}>{value}</span>
+    </div>
+);
+
 const UserLocalExchangeGlimpse: React.FC = () => {
   return (
-    <WindowPanel title="Local Exchange Snapshot">
-      <div className="space-y-4 p-4">
-        <div className="flex justify-between items-center">
-          <span className="font-code text-muted-foreground">Portfolio Value:</span>
-          <span className="font-code text-primary text-lg">{mockPortfolio.portfolioValue}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="font-code text-muted-foreground">Total Investment:</span>
-          <span className="font-code text-white">{mockPortfolio.totalInvestment}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="font-code text-muted-foreground">Overall Gain/Loss:</span>
-          <span className={`font-code text-lg ${mockPortfolio.gainLossPercentage.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>
-            {mockPortfolio.overallGainLoss} ({mockPortfolio.gainLossPercentage})
-          </span>
-        </div>
-        <div className="text-center mt-4">
-          <a href="/user-local-exchange" className="text-primary hover:text-glow font-bold">Go to Exchange &gt;</a>
-        </div>
+    <div className="pixel-card p-6">
+      <h3 className="text-3xl font-bold mb-4 text-black">EXCHANGE_SNAPSHOT</h3>
+      <div className="space-y-3 mb-6">
+        <PortfolioItem label="Portfolio Value" value={mockPortfolio.portfolioValue} valueClass="text-black" />
+        <PortfolioItem label="Total Investment" value={mockPortfolio.totalInvestment} />
+        <PortfolioItem 
+            label="Overall Gain/Loss" 
+            value={`${mockPortfolio.overallGainLoss} (${mockPortfolio.gainLossPercentage})`} 
+            valueClass={mockPortfolio.gainLossPercentage.startsWith('+') ? 'text-black' : 'text-red-500'}
+        />
       </div>
-    </WindowPanel>
+      <div className="text-center">
+        <a href="/dashboard/local-exchange" className="btn-pixel">GO_TO_EXCHANGE</a>
+      </div>
+    </div>
   );
 };
 

@@ -44,14 +44,12 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <div className="min-h-screen flex flex-col items-center justify-center p-4">
-              <Routes>
-                <Route path="/" element={<UserTypeSelector />} />
-                <Route path="/business-login" element={<BusinessLoginPage />} />
-                <Route path="/business-signup" element={<BusinessRegisterPage />} />
-                <Route path="*" element={<UserTypeSelector />} />
-              </Routes>
-            </div>
+            <Routes>
+              <Route path="/" element={<UserTypeSelector />} />
+              <Route path="/business-login" element={<BusinessLoginPage />} />
+              <Route path="/business-signup" element={<BusinessRegisterPage />} />
+              <Route path="*" element={<UserTypeSelector />} />
+            </Routes>
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
@@ -64,7 +62,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen flex flex-col p-4 md:p-8">
+          <div className="min-h-screen flex flex-col bg-grid-pattern">
             <Header
               isConnected={isConnected}
               accountId={accountId || undefined}
@@ -72,7 +70,7 @@ const App = () => {
               onConnect={connect}
               onDisconnect={disconnect}
             />
-            <main className="w-full max-w-screen-xl mx-auto flex-grow mt-8">
+            <main className="w-full max-w-screen-xl mx-auto flex-grow mt-8 p-4 md:p-8">
               <Routes>
                 {/* Conditional Root Redirect */}
                 <Route path="/" element={<Navigate to={userType === 'user' ? "/dashboard" : "/business/dashboard"} replace />} />
