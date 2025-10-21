@@ -248,7 +248,7 @@ export const UserTypeSelector: React.FC = () => {
           </div>
           <div className="text-center mt-8 text-lg">
             <p>
-              Powered by <a href="https://hedera.com/" target="_blank" rel="noopener noreferrer" class="hover:text-green-500">Hedera Hashgraph</a>
+              Powered by <a href="https://hedera.com/" target="_blank" rel="noopener noreferrer" className="hover:text-green-500">Hedera Hashgraph</a>
             </p>
           </div>
         </div>
