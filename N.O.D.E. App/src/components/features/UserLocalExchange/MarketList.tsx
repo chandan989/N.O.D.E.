@@ -42,7 +42,8 @@ export const MarketList = ({ onSelectCompany, isExpandable, isExpanded, onToggle
   const companiesToShow = isExpanded ? mockTopCompanies : mockTopCompanies.slice(0, 5);
 
   return (
-    <div>
+    <div className="pixel-card p-6">
+      {/*<h3 className="text-3xl font-bold mb-4 text-black">MARKET_LIST</h3>*/}
       <ul className={`pr-2 ${!isExpanded ? 'max-h-[400px] overflow-y-auto' : ''}`}>
         {companiesToShow.map(company => {
           const sparklineData = generateSparkline();
@@ -50,13 +51,13 @@ export const MarketList = ({ onSelectCompany, isExpandable, isExpanded, onToggle
             <li
               key={company.id}
               onClick={() => onSelectCompany(company)}
-              className="grid grid-cols-3 items-center p-2 hover:bg-cyan-900/50 cursor-pointer rounded transition-colors"
+              className="flex justify-between items-center py-2 border-b-2 border-dashed border-black/20 hover:bg-black/5 cursor-pointer transition-colors"
             >
-              <div className="col-span-1">
-                <p className="font-bold text-glow">{company.ticker}</p>
-                <p className="text-xs text-gray-400 truncate">{company.name}</p>
+              <div className="flex-1">
+                <p className="font-bold text-lg text-black">{company.ticker}</p>
+                <p className="text-xs text-gray-500 uppercase">{company.name}</p>
               </div>
-              <div className="col-span-1 h-8 w-full">
+              <div className="w-24 h-8 mx-4">
                   <AreaChart data={sparklineData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
                       <defs>
                           <linearGradient id={`sparkline-color-${company.id}`} x1="0" y1="0" x2="0" y2="1">
@@ -67,8 +68,8 @@ export const MarketList = ({ onSelectCompany, isExpandable, isExpanded, onToggle
                       <Area type="monotone" dataKey="v" stroke={company.change >= 0 ? "#10B981" : "#F43F5E"} fill={`url(#sparkline-color-${company.id})`} />
                   </AreaChart>
               </div>
-              <div className="col-span-1 text-right">
-                <p className="text-glow">${company.price.toFixed(2)}</p>
+              <div className="text-right">
+                <p className="font-bold text-lg text-black">${company.price.toFixed(2)}</p>
                 <p className={company.change >= 0 ? 'text-green-400' : 'text-red-400'}>
                   {company.change.toFixed(2)}%
                 </p>
@@ -81,9 +82,9 @@ export const MarketList = ({ onSelectCompany, isExpandable, isExpanded, onToggle
         <div className="mt-4 text-center">
           <button
             onClick={onToggleExpand}
-            className="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold text-sm"
+            className="btn-pixel"
           >
-            {isExpanded ? 'Show Less' : 'View All'}
+            {isExpanded ? 'SHOW_LESS' : 'VIEW_ALL'}
           </button>
         </div>
       )}

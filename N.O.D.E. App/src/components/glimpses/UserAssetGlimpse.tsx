@@ -13,7 +13,7 @@ const AssetProgress: React.FC<{ name: string; progress: number }> = ({ name, pro
         <p className="text-sm font-bold text-black">{progress}%</p>
       </div>
       <div className="w-full bg-gray-200 border-2 border-black">
-        <div style={{ width: `${progress}%`}} className="h-4 bg-black"></div>
+        <div style={{ width: `${progress}%`}} className="h-4 bg-[#00FF00]"></div>
       </div>
     </div>
 );

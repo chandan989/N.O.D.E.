@@ -32,24 +32,24 @@ export const Header: React.FC<HeaderProps> = ({
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     cn(
-      'hover:text-green-500 transition-colors',
-      isActive && 'text-green-500'
+      'hover:text-[#00FF00] transition-colors',
+      isActive && 'text-[#00FF00]'
     );
 
   const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
     cn(
-      'text-2xl w-full text-left p-4 hover:text-green-500 rounded-md transition-colors',
-      isActive ? 'text-green-500' : 'text-black'
+      'text-2xl w-full text-left p-4 hover:text-[#00FF00] rounded-md transition-colors',
+      isActive ? 'text-[#00FF00]' : 'text-black'
     );
 
   const businessLinks = [
-    { to: "/business/dashboard", label: "DASHBOARD" },
+    { to: "/business/dashboard", label: "DASHBOARD", end: true },
     { to: "/business/local-exchange", label: "LOCAL_EXCHANGE" },
     { to: "/business/node-funds", label: "NODE_FUND" },
   ];
 
   const userLinks = [
-    { to: "/dashboard", label: "HOME" },
+    { to: "/dashboard", label: "HOME", end: true },
     { to: "/dashboard/local-exchange", label: "LOCAL_EXCHANGE" },
     { to: "/dashboard/node-funds", label: "NODE_FUND" },
     { to: "/dashboard/dao", label: "ASSETS" }
@@ -67,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({
             </Link>
             <nav className="hidden md:flex items-center gap-6 text-xl">
               {links.map(link => (
-                <NavLink key={link.to} to={link.to} className={navLinkClass}>
+                <NavLink key={link.to} to={link.to} className={navLinkClass} end={link.end}>
                   {link.label}
                 </NavLink>
               ))}
@@ -104,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({
                       </SheetHeader>
                       <nav className="flex flex-col gap-4 my-8">
                         {links.map(link => (
-                          <NavLink key={link.to} to={link.to} className={mobileNavLinkClass} onClick={() => setIsSheetOpen(false)}>
+                          <NavLink key={link.to} to={link.to} className={mobileNavLinkClass} onClick={() => setIsSheetOpen(false)} end={link.end}>
                             {link.label}
                           </NavLink>
                         ))}

@@ -39,13 +39,14 @@ const LocalExchangeGraph: React.FC = () => {
                     tickLine={false}
                     axisLine={false}
                     tickMargin={8}
-                    tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { month: 'short' })}
+                    tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     className="fill-black"
+                    interval={7}
                 />
                 <YAxis tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => `${value} H`}/>
                 <Tooltip
                     cursor={{ stroke: 'black', strokeWidth: 1, strokeDasharray: '3 3' }}
-                    content={<ChartTooltipContent indicator="line" labelClassName="font-bold" className="bg-white/80 backdrop-blur-sm border-2 border-black shadow-lg"/>}
+                    content={<ChartTooltipContent indicator="line" labelClassName="font-bold" className="bg-white/80 backdrop-blur-sm border-2 border-black shadow-lg" />}
                 />
                 <defs>
                     <linearGradient id="fillPrice" x1="0" y1="0" x2="0" y2="1">

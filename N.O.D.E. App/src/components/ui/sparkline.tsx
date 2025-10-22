@@ -12,7 +12,7 @@ export const Sparkline: React.FC<SparklineProps> = ({
   data,
   width = 100,
   height = 30,
-  strokeColor = '#06b6d4', // cyan-500
+  strokeColor = '#000', // cyan-500
   strokeWidth = 2,
 }) => {
   if (!data || data.length < 2) {

@@ -40,43 +40,37 @@ const chartConfig = {
 
 // --- Components ---
 
-const MarketChart = () => (
-    <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-        <AreaChart accessibilityLayer data={marketHistory} margin={{ left: 12, right: 12 }}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-white/10" />
-            <XAxis
-                dataKey="date"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { month: 'short' })}
-                className="fill-white/50"
-            />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
-            <defs>
-                <linearGradient id="fillPriceMarket" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--color-price)" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="var(--color-price)" stopOpacity={0.1} />
-                </linearGradient>
-            </defs>
-            <Area dataKey="price" type="natural" fill="url(#fillPriceMarket)" stroke="var(--color-price)" stackId="a" />
-        </AreaChart>
-    </ChartContainer>
-);
-
 const QuickStats = () => (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-sm">
-        <div>
-            <h3 className="text-base font-semibold text-green-400">Top Gainers</h3>
-            {mockMarketData.topGainers.map(g => <p key={g.ticker} className="font-mono">{g.ticker}: +{g.change}%</p>)}
-        </div>
-        <div>
-            <h3 className="text-base font-semibold text-red-400">Top Losers</h3>
-            {mockMarketData.topLosers.map(l => <p key={l.ticker} className="font-mono">{l.ticker}: {l.change}%</p>)}
-        </div>
-        <div>
-            <h3 className="text-base font-semibold text-cyan-400">Most Active</h3>
-            {mockMarketData.mostActive.map(a => <p key={a.ticker} className="font-mono">{a.ticker}: {a.volume}</p>)}
+    <div className="space-y-4">
+        {/*<h4 className="text-2xl font-bold mb-4 text-black">QUICK STATS</h4>*/}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div>
+                <h5 className="text-xl font-bold text-green-400 mb-2">Top Gainers</h5>
+                {mockMarketData.topGainers.map(g => (
+                    <div key={g.ticker} className="flex justify-between items-baseline py-1 border-b-2 border-dashed border-black/20 last:border-b-0">
+                        <span className="text-base text-gray-500 uppercase">{g.ticker}</span>
+                        <span className="font-bold text-lg text-green-400">+{g.change}%</span>
+                    </div>
+                ))}
+            </div>
+            <div>
+                <h5 className="text-xl font-bold text-black mb-2">Top Losers</h5>
+                {mockMarketData.topLosers.map(l => (
+                    <div key={l.ticker} className="flex justify-between items-baseline py-1 border-b-2 border-dashed border-black/20 last:border-b-0">
+                        <span className="text-base text-gray-500 uppercase">{l.ticker}</span>
+                        <span className="font-bold text-lg text-black">{l.change}%</span>
+                    </div>
+                ))}
+            </div>
+            <div>
+                <h5 className="text-xl font-bold text-black mb-2">Most Active</h5>
+                {mockMarketData.mostActive.map(a => (
+                    <div key={a.ticker} className="flex justify-between items-baseline py-1 border-b-2 border-dashed border-black/20 last:border-b-0">
+                        <span className="text-base text-gray-500 uppercase">{a.ticker}</span>
+                        <span className="font-bold text-lg text-black">{a.volume}</span>
+                    </div>
+                ))}
+            </div>
         </div>
     </div>
 );
@@ -84,29 +78,10 @@ const QuickStats = () => (
 
 export const MarketOverview = ({ isExpandable, isExpanded, onToggleExpand }) => {
   return (
-    <div className="space-y-4">
+    <div className="pixel-card p-6 space-y-6">
+      {/*<h3 className="text-xl font-bold text-black">MARKET OVERVIEW</h3>*/}
       <QuickStats />
-
-      {isExpanded && (
-        <div className="space-y-6 pt-4 border-t border-cyan-900/50">
-          <MarketChart />
-          <div className="flex justify-center space-x-4">
-            <Button>Start Trading</Button>
-            <Button variant="outline">Learn More</Button>
-          </div>
-        </div>
-      )}
-
-      {isExpandable && (
-        <div className="mt-4 text-center">
-          <button
-            onClick={onToggleExpand}
-            className="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold text-sm"
-          >
-            {isExpanded ? 'Hide Chart' : 'Show Chart'}
-          </button>
-        </div>
-      )}
+        
     </div>
   );
 };

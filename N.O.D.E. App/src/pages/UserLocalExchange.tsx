@@ -18,52 +18,54 @@ const mockTopCompanies = [
   { id: 3, name: 'Community Farm', ticker: 'CFARM', price: 42.10, change: 2.15, marketCap: '3.5M' },
 ];
 
+const StatisticItem: React.FC<{ label: string; value: string | number; }> = ({ label, value }) => (
+    <div className="flex justify-between items-baseline py-2 border-b-2 border-dashed border-black/20">
+      <span className="text-gray-500 uppercase text-sm">{label}</span>
+      <span className="font-bold text-lg text-black">{value}</span>
+    </div>
+);
+
+const SentimentDisplay: React.FC<{ sentiment: string; percentage: number; className: string; barClassName: string; }> = ({ sentiment, percentage, className, barClassName }) => (
+    <div>
+        <div className="flex justify-between items-center mb-2">
+            <p className={`font-bold text-lg ${className}`}>{sentiment}</p>
+            <p className="text-sm font-bold text-black">{percentage}%</p>
+        </div>
+        <div className="w-full bg-gray-200 border-2 border-black">
+            <div style={{ width: `${percentage}%`}} className={`h-4 ${barClassName}`}></div>
+        </div>
+    </div>
+);
+
 const AdvancedAnalytics: React.FC = () => (
-    <div className="space-y-4">
-        <h3 className="text-lg sm:text-xl text-glow">Advanced Analytics</h3>
-        <div className="p-4 bg-gray-800/50 rounded-lg">
-            <h4 className="text-md text-glow mb-2">Market Sentiment</h4>
-            <div className="flex items-center justify-between text-sm mb-1">
-                <span>LCAFE</span>
-                <span className="text-green-400">Bullish (78%)</span>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-1.5">
-                <div className="bg-green-500 h-1.5 rounded-full" style={{ width: '78%' }}></div>
-            </div>
-            <div className="flex items-center justify-between text-sm mt-2 mb-1">
-                <span>IBOOK</span>
-                <span className="text-red-400">Bearish (62%)</span>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-1.5">
-                <div className="bg-red-500 h-1.5 rounded-full" style={{ width: '62%' }}></div>
+    <div className="pixel-card p-6 space-y-6">
+        {/*<h3 className="text-xl font-bold text-black">ADVANCED ANALYTICS</h3>*/}
+
+        <div>
+            <h4 className="text-lg font-bold mb-4 text-black">MARKET SENTIMENT</h4>
+            <div className="space-y-4">
+                <SentimentDisplay sentiment="LCAFE Bullish" percentage={78} className="text-[#00FF00]" barClassName="bg-[#00FF00]" />
+                <SentimentDisplay sentiment="IBOOK Bearish" percentage={62} className="text-red-600" barClassName="bg-red-500" />
             </div>
         </div>
-        <div className="p-4 bg-gray-800/50 rounded-lg">
-            <h4 className="text-md text-glow mb-2">Top Movers</h4>
-            <div className="flex justify-between text-sm">
-                <span className="text-gray-400">Top Gainer:</span>
-                <span className="text-green-400">CFARM +5.1%</span>
-            </div>
-            <div className="flex justify-between text-sm mt-1">
-                <span className="text-gray-400">Top Loser:</span>
-                <span className="text-red-400">IBOOK -3.2%</span>
+
+        <div>
+            <h4 className="text-lg font-bold mb-2 text-black">TOP MOVERS</h4>
+            <div className="space-y-2">
+                <StatisticItem label="Top Gainer" value="CFARM +5.1%" />
+                <StatisticItem label="Top Loser" value="IBOOK -3.2%" />
             </div>
         </div>
-        <div className="p-4 bg-gray-800/50 rounded-lg">
-            <h4 className="text-md text-glow mb-2">Trading Volume (24h)</h4>
-            <div className="flex justify-between text-sm">
-                <span className="text-gray-400">LCAFE:</span>
-                <span>$150,000</span>
-            </div>
-            <div className="flex justify-between text-sm mt-1">
-                <span className="text-gray-400">IBOOK:</span>
-                <span>$75,000</span>
-            </div>
-            <div className="flex justify-between text-sm mt-1">
-                <span className="text-gray-400">CFARM:</span>
-                <span>$320,000</span>
+
+        <div>
+            <h4 className="text-lg font-bold mb-2 text-black">TRADING VOLUME (24H)</h4>
+            <div className="space-y-2">
+                <StatisticItem label="LCAFE" value="$150,000" />
+                <StatisticItem label="IBOOK" value="$75,000" />
+                <StatisticItem label="CFARM" value="$320,000" />
             </div>
         </div>
+        
         <p className="text-xs text-gray-500 text-center">
             Analytics are based on mock data and community sentiment analysis.
         </p>
@@ -74,19 +76,18 @@ const componentRegistry = {
   MarketList, MarketOverview, AssetDetailView, CommunityFeed, NewsAndLearning, ExchangeDataTable, AdvancedAnalytics
 };
 
-const initialLayout = [
-    // Left Column: Navigation
-    { id: 'marketList', title: 'Market List', component: 'MarketList', column: 'left', isExpandable: true, isExpanded: true },
-    
-    // Center Column: Focused Asset
-    { id: 'assetDetails', title: 'Asset Details', component: 'AssetDetailView', column: 'center', isExpandable: true, isExpanded: true },
-    { id: 'marketData', title: 'Order Book & Trades', component: 'ExchangeDataTable', column: 'center', isExpandable: true, isExpanded: true },
+const generateDefaultLayout = () => [
+    // Main Column
+    { id: 'assetDetails', title: 'Asset Details', component: 'AssetDetailView', column: 'main', isExpandable: true, isExpanded: true },
+    { id: 'marketOverview', title: 'Market Overview', component: 'MarketOverview', column: 'main', isExpandable: true, isExpanded: true },
+    { id: 'marketData', title: 'Order Book & Trades', component: 'ExchangeDataTable', column: 'main', isExpandable: true, isExpanded: true },
+    { id: 'newsAndLearning', title: 'News & Learning', component: 'NewsAndLearning', column: 'main', isExpandable: true, isExpanded: false },
 
-    // Right Column: Market & Social
-    { id: 'marketOverview', title: 'Market Overview', component: 'MarketOverview', column: 'right', isExpandable: true, isExpanded: true },
-    { id: 'advancedAnalytics', title: 'Advanced Analytics', component: 'AdvancedAnalytics', column: 'right', isExpandable: true, isExpanded: false },
-    { id: 'communityFeed', title: 'Community Feed', component: 'CommunityFeed', column: 'right', isExpandable: true, isExpanded: true },
-    { id: 'newsAndLearning', title: 'News & Learning', component: 'NewsAndLearning', column: 'right', isExpandable: true, isExpanded: false },
+    // Sidebar Column
+    { id: 'advancedAnalytics', title: 'Advanced Analytics', component: 'AdvancedAnalytics', column: 'sidebar', isExpandable: true, isExpanded: false },
+    { id: 'marketList', title: 'Market List', component: 'MarketList', column: 'sidebar', isExpandable: true, isExpanded: true },
+    { id: 'communityFeed', title: 'Community Feed', component: 'CommunityFeed', column: 'sidebar', isExpandable: true, isExpanded: true },
+
 ];
 
 // --- SETTINGS PANEL COMPONENT ---
@@ -110,32 +111,36 @@ const LayoutSettingsPanel = ({ layout, onLayoutChange, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/80 z-50 flex justify-center items-center p-4">
-      <div className="bg-gray-900 border border-cyan-700 rounded-lg p-6 w-full max-w-3xl max-h-full overflow-y-auto">
+      <div className="pixel-card p-6 w-full max-w-3xl max-h-full overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-glow">Customize Layout</h2>
-          <Button onClick={onClose} variant="ghost">Close</Button>
+          <h2 className="text-2xl font-bold text-glow">CUSTOMIZE_LAYOUT</h2>
+          <button onClick={onClose} className="btn-pixel">CLOSE</button>
         </div>
         <div className="space-y-4">
           {layout.map((widget, index) => (
-            <div key={widget.id} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
-              <div className="font-semibold text-white/90">{widget.title}</div>
-              <div className="flex items-center gap-4">
-                <select value={widget.column} onChange={(e) => handleColumnChange(widget.id, e.target.value)} className="bg-gray-900 border border-gray-700 rounded px-2 py-1 text-sm">
-                  <option value="left">Left</option>
-                  <option value="center">Center</option>
-                  <option value="right">Right</option>
-                </select>
+            <div key={widget.id} className="pixel-card-sm flex flex-col sm:flex-row items-center justify-between p-3">
+              <div className="font-semibold text-black mb-2 sm:mb-0">{widget.title}</div>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 justify-center sm:justify-end">
+                <div className="relative inline-block">
+                  <select value={widget.column} onChange={(e) => handleColumnChange(widget.id, e.target.value)} className="appearance-none bg-gray-900 border-2 border-black text-white py-1 px-2 pr-8 rounded-none text-sm focus:outline-none focus:ring-0 focus:border-cyan-400">
+                    <option value="main">MAIN</option>
+                    <option value="sidebar">SIDEBAR</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-black">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
-                  <label className="text-sm">Expandable</label>
+                  <label className="text-sm text-black">EXPANDABLE</label>
                   <Switch checked={widget.isExpandable} onCheckedChange={() => handleToggle(widget.id, 'isExpandable')} />
                 </div>
                 <div className="flex items-center gap-2">
-                  <label className="text-sm">Expanded</label>
+                  <label className="text-sm text-black">EXPANDED</label>
                   <Switch checked={widget.isExpanded} onCheckedChange={() => handleToggle(widget.id, 'isExpanded')} disabled={!widget.isExpandable} />
                 </div>
                 <div className="flex gap-1">
-                  <Button size="sm" variant="outline" onClick={() => handleMove(index, -1)} disabled={index === 0}>Up</Button>
-                  <Button size="sm" variant="outline" onClick={() => handleMove(index, 1)} disabled={index === layout.length - 1}>Down</Button>
+                  <button className="btn-pixel !py-1 !px-2 text-sm" onClick={() => handleMove(index, -1)} disabled={index === 0}>UP</button>
+                  <button className="btn-pixel !py-1 !px-2 text-sm" onClick={() => handleMove(index, 1)} disabled={index === layout.length - 1}>DOWN</button>
                 </div>
               </div>
             </div>
@@ -153,21 +158,38 @@ const UserLocalExchange: React.FC = () => {
   const [isSettingsHovered, setIsSettingsHovered] = useState(false);
 
   const [layoutConfig, setLayoutConfig] = useState(() => {
+    let finalLayout = generateDefaultLayout(); // Start with generated default layout
     try {
       const savedLayoutJSON = localStorage.getItem('userLocalExchangeLayout');
       if (savedLayoutJSON) {
         const savedLayout = JSON.parse(savedLayoutJSON);
-        const savedIds = new Set(savedLayout.map(w => w.id));
-        const newWidgets = initialLayout.filter(w => !savedIds.has(w.id));
-        const initialIds = new Set(initialLayout.map(w => w.id));
-        const finalSavedLayout = savedLayout.filter(w => initialIds.has(w.id));
-        return [...finalSavedLayout, ...newWidgets];
+        const initialIds = new Set(finalLayout.map(w => w.id)); // Use IDs from the generated default
+
+        const migratedSavedLayout = savedLayout.filter(w => initialIds.has(w.id)).map(w => {
+          let newColumn = w.column;
+          // Migrate old column names to new ones
+          if (w.column === 'left' || w.column === 'center') {
+            newColumn = 'main';
+          }
+          return { ...w, column: newColumn };
+        });
+
+        const savedIds = new Set(migratedSavedLayout.map(w => w.id));
+        const newWidgets = finalLayout.filter(w => !savedIds.has(w.id));
+
+        // Combine migrated saved layout with any new widgets from the generated default layout
+        finalLayout = [...migratedSavedLayout, ...newWidgets];
+      } else {
+        // If no saved layout, save the generated default layout to localStorage
+        localStorage.setItem('userLocalExchangeLayout', JSON.stringify(finalLayout));
       }
-      return initialLayout;
     } catch (error) {
-      console.error("Failed to parse layout from localStorage", error);
-      return initialLayout;
+      console.error("Failed to parse or migrate layout from localStorage", error);
+      // If an error occurs, finalLayout remains the generated default layout
+      // And we should also save it to localStorage if it wasn't already there
+      localStorage.setItem('userLocalExchangeLayout', JSON.stringify(finalLayout));
     }
+    return finalLayout;
   });
 
   useEffect(() => {
@@ -213,51 +235,39 @@ const UserLocalExchange: React.FC = () => {
 
   const columns = useMemo(() => {
     return {
-      left: layoutConfig.filter(w => w.column === 'left'),
-      center: layoutConfig.filter(w => w.column === 'center'),
-      right: layoutConfig.filter(w => w.column === 'right'),
+      main: layoutConfig.filter(w => w.column === 'main'),
+      sidebar: layoutConfig.filter(w => w.column === 'sidebar'),
     };
   }, [layoutConfig]);
 
   return (
-    <div className="pb-24">
-      <div className="container mx-auto px-4 py-8 text-base space-y-8">
-        {isSettingsOpen && <LayoutSettingsPanel layout={layoutConfig} onLayoutChange={setLayoutConfig} onClose={() => setIsSettingsOpen(false)} />}
-        
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-              <div>
-                <h1 className="text-2xl sm:text-3xl md:text-5xl uppercase text-glow">Local Exchange</h1>
-                <p className="text-lg text-cyan-300/70 tracking-widest">Your Community Marketplace</p>
-              </div>
-              <InfoTrigger title="N.O.D.E. Local Exchange" description="This is a data and analytics platform to analyze how local businesses and community projects are performing."/>
-          </div>
-        </div>
+    <div className="space-y-8 py-8 px-4 mt-10">
+      {isSettingsOpen && <LayoutSettingsPanel layout={layoutConfig} onLayoutChange={setLayoutConfig} onClose={() => setIsSettingsOpen(false)} />}
+      
+      <div className="text-center">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">LOCAL <span className="text-glow">EXCHANGE</span></h1>
+          <p className="text-2xl mt-2 text-gray-500">// Your Community Marketplace</p>
+      </div>
+      {/*<div className="flex justify-center mt-4">*/}
+      {/*    <InfoTrigger title="N.O.D.E. Local Exchange" description="This is a data and analytics platform to analyze how local businesses and community projects are performing."/>*/}
+      {/*</div>*/}
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-3 space-y-6">{columns.left.map(renderWidget)}</div>
-          <div className="lg:col-span-6 space-y-6">{columns.center.map(renderWidget)}</div>
-          <div className="lg:col-span-3 space-y-6">{columns.right.map(renderWidget)}</div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          {columns.main.map(renderWidget)}
+        </div>
+        <div className="lg:col-span-1 space-y-6">
+          {columns.sidebar.map(renderWidget)}
         </div>
       </div>
 
       <div className="fixed bottom-8 right-8 z-40">
-        <Button 
+        <button 
           onClick={() => setIsSettingsOpen(true)} 
-          onMouseEnter={() => setIsSettingsHovered(true)}
-          onMouseLeave={() => setIsSettingsHovered(false)}
-          className={`group transition-all duration-300 ease-in-out rounded-full flex items-center justify-center bg-gray-900/80 hover:bg-gray-900/80 backdrop-blur-sm border border-cyan-700/50 text-cyan-400 shadow-lg shadow-cyan-500/20 ${isSettingsHovered ? 'w-48 h-16' : 'w-16 h-16'}`}
+          className="btn-pixel"
         >
-            <div className={`absolute transition-all duration-300 ease-in-out ${isSettingsHovered ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}>
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.438.995s.145.755.438.995l1.003.827c.424.35.534.954.26 1.431l-1.296 2.247a1.125 1.125 0 01-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.127c-.331.183-.581.495-.644.87l.213 1.281c-.09.543-.56.94-1.11.94h-2.593c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.063-.374-.313.686-.645-.87a6.52 6.52 0 01-.22-.127c-.324-.196-.72-.257-1.075-.124l-1.217.456a1.125 1.125 0 01-1.37-.49l-1.296-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.437-.995s-.145-.755-.437-.995l-1.004-.827a1.125 1.125 0 01-.26-1.431l1.296-2.247a1.125 1.125 0 011.37-.49l1.217.456c.355.133.75.072 1.076-.124.072-.044.146-.087.22-.127.331-.183.581.495.644-.87l.213-1.281z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-            </div>
-            <div className={`absolute transition-all duration-300 ease-in-out ${isSettingsHovered ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}>
-                 <span className="text-base font-semibold">Customize View</span>
-            </div>
-        </Button>
+            CUSTOMIZE_VIEW
+        </button>
       </div>
     </div>
   );

@@ -38,29 +38,29 @@ const exchangeData = [
 
 export const ExchangeDataTable: React.FC = () => {
     return (
-        <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-cyan-500">
-                <thead className="bg-black">
+        <div className="pixel-card p-6">
+            <table className="w-full">
+                <thead>
                     <tr>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-glow uppercase tracking-wider">TOKEN</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-glow uppercase tracking-wider">PRICE</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-glow uppercase tracking-wider">CHANGE (24H)</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-glow uppercase tracking-wider">TREND (7D)</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-glow uppercase tracking-wider">MARKET CAP</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-glow uppercase tracking-wider">VOLUME (24H)</th>
+                        <th scope="col" className="px-4 py-3 text-left text-base font-bold text-black">TOKEN</th>
+                        <th scope="col" className="px-4 py-3 text-left text-base font-bold text-black">PRICE</th>
+                        <th scope="col" className="px-4 py-3 text-left text-base font-bold text-black">CHANGE (24H)</th>
+                        <th scope="col" className="px-4 py-3 text-left text-base font-bold text-black">TREND (7D)</th>
+                        <th scope="col" className="px-4 py-3 text-left text-base font-bold text-black">MARKET CAP</th>
+                        <th scope="col" className="px-4 py-3 text-left text-base font-bold text-black">VOLUME (24H)</th>
                     </tr>
                 </thead>
-                <tbody className="bg-black bg-opacity-50 divide-y divide-gray-800">
+                <tbody className="divide-y divide-black/20">
                     {exchangeData.map((item, index) => (
-                        <tr key={index} className="hover:bg-gray-800 transition-colors duration-200">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{item.token}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{item.price}</td>
-                            <td className={`px-6 py-4 whitespace-nowrap text-sm ${item.change.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>{item.change}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <tr key={index} className="hover:bg-gray-100 transition-colors duration-200">
+                            <td className="px-4 py-4 whitespace-nowrap text-base font-medium text-black">{item.token}</td>
+                            <td className="px-4 py-4 whitespace-nowrap text-base text-black">{item.price}</td>
+                            <td className={`px-4 py-4 whitespace-nowrap text-base ${item.change.startsWith('+') ? 'text-[#00FF00]' : 'text-red-600'}`}>{item.change}</td>
+                            <td className="px-4 py-4 whitespace-nowrap text-base">
                                 <Sparkline data={item.trend} />
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{item.marketCap}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{item.volume}</td>
+                            <td className="px-4 py-4 whitespace-nowrap text-base text-black">{item.marketCap}</td>
+                            <td className="px-4 py-4 whitespace-nowrap text-base text-black">{item.volume}</td>
                         </tr>
                     ))}
                 </tbody>

@@ -26,14 +26,14 @@ const mockPoll = {
 // --- Components ---
 
 const PostCard = ({ post }) => (
-    <div className="bg-gray-800/50 p-3 rounded-lg">
+    <div className="p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
         <div className="flex items-center mb-2">
-            <p className="font-semibold text-cyan-400">@{post.user}</p>
+            <p className="font-semibold text-black">@{post.user}</p>
             {post.ticker && <span className="mx-2 text-gray-500">·</span>}
             {post.ticker && <p className="text-sm text-gray-500 font-mono">${post.ticker}</p>}
         </div>
-        <p className="text-white/90 text-sm">{post.content}</p>
-        <div className="flex items-center text-xs text-gray-400 mt-2">
+        <p className="text-black text-sm">{post.content}</p>
+        <div className="flex items-center text-xs text-gray-500 mt-2">
             <span>{post.likes} Likes</span>
             <span className="mx-2">·</span>
             <span>{post.comments} Comments</span>
@@ -42,11 +42,11 @@ const PostCard = ({ post }) => (
 )
 
 const PollCard = ({ poll }) => (
-    <div className="bg-gray-800/50 p-4 rounded-lg">
-        <p className="font-semibold mb-3 text-center">{poll.question}</p>
+    <div className="p-2 rounded-lg">
+        <p className="font-semibold mb-3 text-center text-black">{poll.question}</p>
         <div className="space-y-2">
             {poll.options.map((option, index) => (
-                 <Button variant="outline" className="w-full justify-between">
+                 <Button variant="outline" className="w-full justify-between text-black hover:bg-gray-100">
                     {option} <span className="font-bold">{poll.votes[index]}%</span>
                 </Button>
             ))}
@@ -59,20 +59,20 @@ export const CommunityFeed = ({ isExpandable, isExpanded, onToggleExpand }) => {
   const postsToShow = isExpanded ? mockPosts : mockPosts.slice(0, 1);
 
   return (
-    <div className="space-y-4">
-        <div className="space-y-4">
+    <div className="pixel-card p-6 space-y-6">
+        <div className="space-y-2">
             {postsToShow.map(post => <PostCard key={post.id} post={post} />)}
         </div>
         
         {isExpanded && (
-            <div className="space-y-4 pt-4 border-t border-cyan-900/50">
+            <div className="space-y-4 pt-4 border-t-2 border-dashed border-black/20">
                 <PollCard poll={mockPoll} />
                 <div>
-                    <h4 className="font-semibold mb-2">Trending</h4>
+                    <h4 className="text-lg font-bold mb-4 text-black">Trending</h4>
                     <div className="flex flex-wrap gap-2">
-                        <span className="bg-cyan-900/50 px-2 py-1 rounded-full text-sm cursor-pointer hover:bg-cyan-800">#LocalInvesting</span>
-                        <span className="bg-cyan-900/50 px-2 py-1 rounded-full text-sm cursor-pointer hover:bg-cyan-800">#Community</span>
-                        <span className="bg-cyan-900/50 px-2 py-1 rounded-full text-sm cursor-pointer hover:bg-cyan-800">#NFTs</span>
+                        <span className="bg-gray-200 px-2 py-1 rounded-full text-sm cursor-pointer hover:bg-gray-300 text-black">#LocalInvesting</span>
+                        <span className="bg-gray-200 px-2 py-1 rounded-full text-sm cursor-pointer hover:bg-gray-300 text-black">#Community</span>
+                        <span className="bg-gray-200 px-2 py-1 rounded-full text-sm cursor-pointer hover:bg-gray-300 text-black">#NFTs</span>
                     </div>
                 </div>
             </div>
@@ -82,9 +82,9 @@ export const CommunityFeed = ({ isExpandable, isExpanded, onToggleExpand }) => {
             <div className="mt-4 text-center">
                 <button
                     onClick={onToggleExpand}
-                    className="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold text-sm"
+                    className="btn-pixel !py-1 !px-2 text-sm"
                 >
-                    {isExpanded ? 'Show Less' : 'Expand Feed'}
+                    {isExpanded ? 'SHOW LESS' : 'SHOW MORE'}
                 </button>
             </div>
         )}
