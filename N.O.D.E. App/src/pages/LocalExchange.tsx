@@ -78,11 +78,11 @@ const HistoricalPerformanceChart: React.FC<{ ticker?: string }> = ({ ticker }) =
             <p className="text-gray-500">[Chart for {ticker || 'selected asset'} will be displayed here]</p>
         </div>
         <div className="flex justify-around">
-            <Button variant="ghost" size="sm" className="text-xs">1D</Button>
-            <Button variant="ghost" size="sm" className="text-xs text-cyan-400">7D</Button>
-            <Button variant="ghost" size="sm" className="text-xs">1M</Button>
-            <Button variant="ghost" size="sm" className="text-xs">1Y</Button>
-            <Button variant="ghost" size="sm" className="text-xs">ALL</Button>
+            <button className="btn-pixel !py-1 !px-2 text-sm">1D</button>
+            <button className="btn-pixel !py-1 !px-2 text-sm">7D</button>
+            <button className="btn-pixel !py-1 !px-2 text-sm">1M</button>
+            <button className="btn-pixel !py-1 !px-2 text-sm">1Y</button>
+            <button className="btn-pixel !py-1 !px-2 text-sm">ALL</button>
         </div>
     </div>
 );
@@ -92,21 +92,19 @@ const componentRegistry = {
 };
 
 const initialLayout = [
-    // Left Column: Navigation
-    { id: 'marketList', title: 'Market List', component: 'MarketList', column: 'left', isExpandable: true, isExpanded: true },
-    
-    // Center Column: Focused Asset
-    { id: 'assetDetails', title: 'Asset Details', component: 'AssetDetailView', column: 'center', isExpandable: true, isExpanded: true },
-    { id: 'historicalPerformance', title: 'Historical Performance', component: 'HistoricalPerformanceChart', column: 'center', isExpandable: true, isExpanded: true },
-    { id: 'marketData', title: 'Order Book & Trades', component: 'ExchangeDataTable', column: 'center', isExpandable: true, isExpanded: true },
+    // Main Column
+    { id: 'marketList', title: 'Market List', component: 'MarketList', column: 'main', isExpandable: true, isExpanded: true },
+    { id: 'assetDetails', title: 'Asset Details', component: 'AssetDetailView', column: 'main', isExpandable: true, isExpanded: true },
+    { id: 'historicalPerformance', title: 'Historical Performance', component: 'HistoricalPerformanceChart', column: 'main', isExpandable: true, isExpanded: true },
+    { id: 'marketData', title: 'Order Book & Trades', component: 'ExchangeDataTable', column: 'main', isExpandable: true, isExpanded: true },
 
-    // Right Column: Market & Social
-    { id: 'listYourBusiness', title: 'List Your Business', component: 'ListYourBusiness', column: 'right', isExpandable: false, isExpanded: true },
-    { id: 'myBusinessStatus', title: 'My Business', component: 'MyBusinessStatus', column: 'right', isExpandable: false, isExpanded: true },
-    { id: 'marketOverview', title: 'Market Overview', component: 'MarketOverview', column: 'right', isExpandable: true, isExpanded: true },
-    { id: 'advancedAnalytics', title: 'Advanced Analytics', component: 'AdvancedAnalytics', column: 'right', isExpandable: true, isExpanded: false },
-    { id: 'communityFeed', title: 'Community Feed', component: 'CommunityFeed', column: 'right', isExpandable: true, isExpanded: true },
-    { id: 'newsAndLearning', title: 'News & Learning', component: 'NewsAndLearning', column: 'right', isExpandable: true, isExpanded: false },
+    // Sidebar Column
+    { id: 'listYourBusiness', title: 'List Your Business', component: 'ListYourBusiness', column: 'sidebar', isExpandable: false, isExpanded: true },
+    { id: 'myBusinessStatus', title: 'My Business', component: 'MyBusinessStatus', column: 'sidebar', isExpandable: false, isExpanded: true },
+    { id: 'marketOverview', title: 'Market Overview', component: 'MarketOverview', column: 'sidebar', isExpandable: true, isExpanded: true },
+    { id: 'advancedAnalytics', title: 'Advanced Analytics', component: 'AdvancedAnalytics', column: 'sidebar', isExpandable: true, isExpanded: false },
+    { id: 'communityFeed', title: 'Community Feed', component: 'CommunityFeed', column: 'sidebar', isExpandable: true, isExpanded: true },
+    { id: 'newsAndLearning', title: 'News & Learning', component: 'NewsAndLearning', column: 'sidebar', isExpandable: true, isExpanded: false },
 ];
 
 // --- SETTINGS PANEL COMPONENT ---
@@ -130,32 +128,36 @@ const LayoutSettingsPanel = ({ layout, onLayoutChange, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/80 z-50 flex justify-center items-center p-4">
-      <div className="bg-gray-900 border border-cyan-700 rounded-lg p-6 w-full max-w-3xl max-h-full overflow-y-auto">
+      <div className="pixel-card p-6 w-full max-w-3xl max-h-full overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-glow">Customize Layout</h2>
-          <Button onClick={onClose} variant="ghost">Close</Button>
+          <h2 className="text-2xl font-bold text-glow">CUSTOMIZE_LAYOUT</h2>
+          <button onClick={onClose} className="btn-pixel">CLOSE</button>
         </div>
         <div className="space-y-4">
           {layout.map((widget, index) => (
-            <div key={widget.id} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
-              <div className="font-semibold text-white/90">{widget.title}</div>
-              <div className="flex items-center gap-4">
-                <select value={widget.column} onChange={(e) => handleColumnChange(widget.id, e.target.value)} className="bg-gray-900 border border-gray-700 rounded px-2 py-1 text-sm">
-                  <option value="left">Left</option>
-                  <option value="center">Center</option>
-                  <option value="right">Right</option>
-                </select>
+            <div key={widget.id} className="pixel-card-sm flex flex-col sm:flex-row items-center justify-between p-3">
+              <div className="font-semibold text-black mb-2 sm:mb-0">{widget.title}</div>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 justify-center sm:justify-end">
+                <div className="relative inline-block">
+                  <select value={widget.column} onChange={(e) => handleColumnChange(widget.id, e.target.value)} className="appearance-none bg-gray-900 border-2 border-black text-white py-1 px-2 pr-8 rounded-none text-sm focus:outline-none focus:ring-0 focus:border-cyan-400">
+                    <option value="main">MAIN</option>
+                    <option value="sidebar">SIDEBAR</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-black">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
-                  <label className="text-sm">Expandable</label>
+                  <label className="text-sm text-black">EXPANDABLE</label>
                   <Switch checked={widget.isExpandable} onCheckedChange={() => handleToggle(widget.id, 'isExpandable')} />
                 </div>
                 <div className="flex items-center gap-2">
-                  <label className="text-sm">Expanded</label>
+                  <label className="text-sm text-black">EXPANDED</label>
                   <Switch checked={widget.isExpanded} onCheckedChange={() => handleToggle(widget.id, 'isExpanded')} disabled={!widget.isExpandable} />
                 </div>
                 <div className="flex gap-1">
-                  <Button size="sm" variant="outline" onClick={() => handleMove(index, -1)} disabled={index === 0}>Up</Button>
-                  <Button size="sm" variant="outline" onClick={() => handleMove(index, 1)} disabled={index === layout.length - 1}>Down</Button>
+                  <button className="btn-pixel !py-1 !px-2 text-sm" onClick={() => handleMove(index, -1)} disabled={index === 0}>UP</button>
+                  <button className="btn-pixel !py-1 !px-2 text-sm" onClick={() => handleMove(index, 1)} disabled={index === layout.length - 1}>DOWN</button>
                 </div>
               </div>
             </div>
@@ -170,7 +172,6 @@ const LayoutSettingsPanel = ({ layout, onLayoutChange, onClose }) => {
 const LocalExchange: React.FC = () => {
   const [selectedCompany, setSelectedCompany] = useState(mockTopCompanies[0]);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isSettingsHovered, setIsSettingsHovered] = useState(false);
   const [isListed, setIsListed] = useState(false); // Mock state for business listing
 
   const [layoutConfig, setLayoutConfig] = useState(() => {
@@ -212,8 +213,11 @@ const LocalExchange: React.FC = () => {
         return null;
     }
 
-    if (widget.component === 'MyBusinessStatus' || widget.component === 'ListYourBusiness') {
-      return <Component key={widget.id} />;
+    if (widget.component === 'MyBusinessStatus' && !isListed) {
+      return null;
+    }
+    if (widget.component === 'ListYourBusiness' && isListed) {
+        return null;
     }
 
     let props: any = {
@@ -233,69 +237,43 @@ const LocalExchange: React.FC = () => {
     }
 
     return (
-      <WindowPanel key={widget.id} title={widget.title}>
+      <WindowPanel key={widget.id} title={widget.title} {...props}>
         <Component {...props} />
       </WindowPanel>
     );
   };
 
   const columns = useMemo(() => {
-    const visibleLayout = layoutConfig.filter(widget => {
-      if (widget.id === 'myBusinessStatus') {
-        return isListed;
-      }
-      if (widget.id === 'listYourBusiness') {
-        return !isListed;
-      }
-      return true;
-    });
-
     return {
-      left: visibleLayout.filter(w => w.column === 'left'),
-      center: visibleLayout.filter(w => w.column === 'center'),
-      right: visibleLayout.filter(w => w.column === 'right'),
+      main: layoutConfig.filter(w => w.column === 'main'),
+      sidebar: layoutConfig.filter(w => w.column === 'sidebar'),
     };
-  }, [layoutConfig, isListed]);
+  }, [layoutConfig]);
 
   return (
-    <div className="pb-24">
-      <div className="container mx-auto px-4 py-8 text-base space-y-8">
+    <div className="space-y-8 py-8 px-4 mt-10">
         {isSettingsOpen && <LayoutSettingsPanel layout={layoutConfig} onLayoutChange={setLayoutConfig} onClose={() => setIsSettingsOpen(false)} />}
         
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-              <div>
-                <h1 className="text-2xl sm:text-3xl md:text-5xl uppercase text-glow">Local Exchange</h1>
-                <p className="text-lg text-cyan-300/70 tracking-widest">Your Community Marketplace</p>
-              </div>
-              <InfoTrigger title="N.O.D.E. Local Exchange" description="This is a data and analytics platform. You can list your business for tokenization and analyze how other businesses are performing."/>
-          </div>
+        <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tight">LOCAL <span className="text-glow">EXCHANGE</span></h1>
+            <p className="text-2xl mt-2 text-gray-500">// Your Community Marketplace</p>
+            <div className="flex justify-center mt-4">
+                <InfoTrigger title="N.O.D.E. Local Exchange" description="This is a data and analytics platform. You can list your business for tokenization and analyze how other businesses are performing."/>
+            </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-3 space-y-6">{columns.left.map(renderWidget)}</div>
-          <div className="lg:col-span-6 space-y-6">{columns.center.map(renderWidget)}</div>
-          <div className="lg:col-span-3 space-y-6">{columns.right.map(renderWidget)}</div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">{columns.main.map(renderWidget)}</div>
+          <div className="lg:col-span-1 space-y-6">{columns.sidebar.map(renderWidget)}</div>
         </div>
-      </div>
 
       <div className="fixed bottom-8 right-8 z-40">
-        <Button 
+        <button 
           onClick={() => setIsSettingsOpen(true)} 
-          onMouseEnter={() => setIsSettingsHovered(true)}
-          onMouseLeave={() => setIsSettingsHovered(false)}
-          className={`group transition-all duration-300 ease-in-out rounded-full flex items-center justify-center bg-gray-900/80 hover:bg-gray-900/80 backdrop-blur-sm border border-cyan-700/50 text-cyan-400 shadow-lg shadow-cyan-500/20 ${isSettingsHovered ? 'w-48 h-16' : 'w-16 h-16'}`}
+          className="btn-pixel"
         >
-            <div className={`absolute transition-all duration-300 ease-in-out ${isSettingsHovered ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}>
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.438.995s.145.755.438.995l1.003.827c.424.35.534.954.26 1.431l-1.296 2.247a1.125 1.125 0 01-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.127c-.331.183-.581.495-.644.87l-.213 1.281c-.09.543-.56.94-1.11.94h-2.593c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.063-.374-.313.686-.645-.87a6.52 6.52 0 01-.22-.127c-.324-.196-.72-.257-1.075-.124l-1.217.456a1.125 1.125 0 01-1.37-.49l-1.296-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.437-.995s-.145-.755-.437-.995l-1.004-.827a1.125 1.125 0 01-.26-1.431l1.296-2.247a1.125 1.125 0 011.37-.49l1.217.456c.355.133.75.072 1.076-.124.072-.044.146-.087.22-.127.331-.183.581-.495.644-.87l.213-1.281z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-            </div>
-            <div className={`absolute transition-all duration-300 ease-in-out ${isSettingsHovered ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}>
-                 <span className="text-base font-semibold">Customize View</span>
-            </div>
-        </Button>
+            CUSTOMIZE_VIEW
+        </button>
       </div>
     </div>
   );
