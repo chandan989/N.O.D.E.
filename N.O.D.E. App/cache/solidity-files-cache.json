@@ -1,0 +1,149 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\HPP\\Downloads\\hacks\\NODE\\N.O.D.E. App\\contracts\\AssetTokenization.sol": {
+      "lastModificationDate": 1761928632553,
+      "contentHash": "6db4137f30a98f929891318f6ebaa62f",
+      "sourceName": "contracts/AssetTokenization.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "AssetTokenization"
+      ]
+    },
+    "C:\\Users\\HPP\\Downloads\\hacks\\NODE\\N.O.D.E. App\\contracts\\LendingProtocol.sol": {
+      "lastModificationDate": 1761928621231,
+      "contentHash": "555555667a4ada1e9eedb027bc778656",
+      "sourceName": "contracts/LendingProtocol.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "LendingProtocol"
+      ]
+    },
+    "C:\\Users\\HPP\\Downloads\\hacks\\NODE\\N.O.D.E. App\\contracts\\NodeGovernance.sol": {
+      "lastModificationDate": 1761928570629,
+      "contentHash": "c16aee6514efe5f78c8253aaa28fcbc9",
+      "sourceName": "contracts/NodeGovernance.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "NodeGovernance"
+      ]
+    },
+    "C:\\Users\\HPP\\Downloads\\hacks\\NODE\\N.O.D.E. App\\contracts\\NodeVault.sol": {
+      "lastModificationDate": 1761928593900,
+      "contentHash": "28526d99883844dd28fbed2898b60d4a",
+      "sourceName": "contracts/NodeVault.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "NodeVault"
+      ]
+    }
+  }
+}

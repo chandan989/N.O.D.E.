@@ -34,7 +34,7 @@ import BusinessNodeFund from "@/pages/BusinessNodeFund.tsx";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const { isConnected, accountId, balance, connect, disconnect } = useWalletStore();
+  const { isConnected, accountId, balance, walletType, connect, disconnect } = useWalletStore();
   const { userType } = useUserStore();
 
   if (!userType) {
@@ -67,6 +67,7 @@ const App = () => {
               isConnected={isConnected}
               accountId={accountId || undefined}
               balance={balance || undefined}
+              walletType={walletType}
               onConnect={connect}
               onDisconnect={disconnect}
             />

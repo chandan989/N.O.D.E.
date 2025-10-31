@@ -84,4 +84,27 @@
       opacity: 1;
       transform: translateY(0);
   }
+
+  .wallet-option {
+      border: 2px solid var(--pixel-black);
+      background: var(--pixel-white);
+      transition: all 0.2s ease-in-out;
+  }
+
+  .wallet-option:hover {
+      background: var(--pixel-bg);
+      transform: translate(-2px, -2px);
+      box-shadow: 2px 2px 0 0 var(--pixel-black);
+  }
+
+  .wallet-option:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+  }
+
+  .wallet-option:disabled:hover {
+      transform: none;
+      box-shadow: none;
+      background: var(--pixel-white);
+  }
 }

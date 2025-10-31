@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.O.D.E. WalletConnect Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            border: 3px solid #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .demo-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #00ff00;
+            border-radius: 5px;
+        }
+
+        .demo-section h2 {
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .demo-section ol, .demo-section ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .demo-section li {
+            margin: 10px 0;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 3px solid #00ff00;
+            overflow-x: auto;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .demo-button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+            border: 2px solid #00ff00;
+        }
+
+        .demo-button:hover {
+            background: #00cc00;
+            transform: scale(1.05);
+        }
+
+        .demo-button:active {
+            transform: scale(0.95);
+        }
+
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .status.connected {
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid #00ff00;
+        }
+
+        .status.disconnected {
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid #ff0000;
+        }
+
+        .highlight {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .warning {
+            background: rgba(255, 255, 0, 0.2);
+            border: 2px solid #ffff00;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .info-box {
+            background: rgba(0, 150, 255, 0.2);
+            border: 2px solid #0096ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 3px solid #fff;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .demo-button {
+                width: 100%;
+            }
+
+            iframe {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 N.O.D.E. WALLETCONNECT DEMO</h1>
+        <p class="subtitle">Interactive Demonstration of Hedera Wallet Integration</p>
+
+        <div class="demo-section">
+            <h2>📋 Prerequisites</h2>
+            <ul>
+                <li>✅ Development server running (<span class="highlight">npm run dev</span>)</li>
+                <li>✅ HashPack wallet installed on mobile device</li>
+                <li>✅ Testnet account with some HBAR</li>
+                <li>✅ Browser console open (F12) for logs</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>🎯 Quick Start</h2>
+            <ol>
+                <li>Open the N.O.D.E. app in the iframe below (or in a new tab)</li>
+                <li>Open browser console (F12) and run: <span class="highlight">walletDemo.runFullDemo()</span></li>
+                <li>Follow the on-screen instructions</li>
+                <li>Scan QR code with HashPack when prompted</li>
+            </ol>
+        </div>
+
+        <div class="demo-section">
+            <h2>🎮 Interactive Demo Controls</h2>
+            <p>Run these commands in the browser console (F12) after the app loads:</p>
+            
+            <div class="code-block">
+// Run full automated demo<br>
+walletDemo.runFullDemo()<br><br>
+// Or run individual steps:<br>
+walletDemo.step1_Introduction()<br>
+walletDemo.step2_CheckConnection()<br>
+walletDemo.step3_InitiateConnection()<br>
+walletDemo.step5_ShowConnectedState()<br>
+            </div>
+
+            <div class="button-group">
+                <button class="demo-button" onclick="openApp()">🚀 Open App in New Tab</button>
+                <button class="demo-button" onclick="loadDemoScript()">📝 Load Demo Script</button>
+                <button class="demo-button" onclick="showInstructions()">📖 Show Instructions</button>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>💡 Tip:</strong> Open the app in a new tab for better experience, then run the demo script commands in that tab's console.
+        </div>
+
+        <div class="demo-section">
+            <h2>📱 Connection Flow</h2>
+            <ol>
+                <li><span class="highlight">Click "JOIN_NETWORK"</span> button in app header</li>
+                <li><span class="highlight">QR Code appears</span> in WalletConnect modal</li>
+                <li><span class="highlight">Open HashPack</span> on mobile → Settings → WalletConnect</li>
+                <li><span class="highlight">Scan QR code</span> with HashPack</li>
+                <li><span class="highlight">Approve connection</span> in HashPack</li>
+                <li><span class="highlight">Connection established!</span> Account ID and balance displayed</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Note:</strong> The demo script requires the app to be loaded first. Make sure the development server is running and the app is accessible at <span class="highlight">http://localhost:8080</span>
+        </div>
+
+        <div class="demo-section">
+            <h2>🖥️ Live Preview</h2>
+            <iframe id="appFrame" src="http://localhost:8080" title="N.O.D.E. App"></iframe>
+        </div>
+
+        <div class="demo-section">
+            <h2>📊 What to Watch For</h2>
+            <ul>
+                <li><span class="highlight">Console logs:</span> Look for 🔗, 📱, ✅, ❌ emoji-prefixed messages</li>
+                <li><span class="highlight">QR Code:</span> Should appear when clicking "JOIN_NETWORK"</li>
+                <li><span class="highlight">Account ID:</span> Format should be "0.0.XXXXX"</li>
+                <li><span class="highlight">Balance:</span> Fetched from Hedera Mirror Node API</li>
+                <li><span class="highlight">Session persistence:</span> Connection survives page refresh</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>🔧 Troubleshooting</h2>
+            <ul>
+                <li><strong>QR code doesn't appear:</strong> Check console for errors, verify WalletConnect project ID</li>
+                <li><strong>Pairing times out:</strong> Ensure HashPack is ready to scan, check network</li>
+                <li><strong>Balance doesn't load:</strong> Verify account has testnet activity, check Mirror Node API</li>
+                <li><strong>Demo script not found:</strong> Make sure app is loaded first, then run script in console</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function openApp() {
+            window.open('http://localhost:8080', '_blank');
+            alert('✅ App opened in new tab!\n\nNow:\n1. Open console (F12)\n2. Run: walletDemo.runFullDemo()');
+        }
+
+        function loadDemoScript() {
+            const script = document.createElement('script');
+            script.src = './demo-wallet.js';
+            script.onload = () => {
+                alert('✅ Demo script loaded!\n\nGo to the app tab and run:\nwalletDemo.runFullDemo()');
+            };
+            script.onerror = () => {
+                alert('❌ Could not load demo script.\nMake sure demo-wallet.js is in the project root.');
+            };
+            document.head.appendChild(script);
+        }
+
+        function showInstructions() {
+            const instructions = `
+📖 WALLETCONNECT DEMO INSTRUCTIONS
+
+1. PREPARATION:
+   • Start dev server: npm run dev
+   • Open app: http://localhost:8080
+   • Open browser console (F12)
+
+2. RUN DEMO:
+   • Type: walletDemo.runFullDemo()
+   • Follow console prompts
+   • Scan QR with HashPack when shown
+
+3. MANUAL FLOW:
+   • Click "JOIN_NETWORK" button
+   • Scan QR code with HashPack
+   • Approve connection
+   • View connected state
+
+4. VERIFY:
+   • Check console for ✅ logs
+   • Verify account ID displayed
+   • Check balance loaded correctly
+
+For full details, see: WALLET_DEMO.md
+            `;
+            alert(instructions);
+        }
+
+        // Auto-load demo script if app frame loads
+        document.getElementById('appFrame').onload = function() {
+            console.log('✅ App loaded! Run: walletDemo.runFullDemo()');
+        };
+    </script>
+</body>
+</html>
+

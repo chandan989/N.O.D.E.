@@ -1,0 +1,23 @@
+# Hardhat files
+cache/
+artifacts/
+typechain/
+typechain-types/
+
+# Environment variables
+.env
+.env.local
+
+# Deployment info (optional - you may want to commit this)
+deployment-info.json
+
+# Node modules
+node_modules/
+
+# Coverage reports
+coverage/
+coverage.json
+
+# Solidity compiler output
+*.sol.js
+

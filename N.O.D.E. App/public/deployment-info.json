@@ -1,0 +1,9 @@
+{
+  "network": "testnet",
+  "operator": "0.0.6513741",
+  "timestamp": "2025-10-31T19:28:17.091Z",
+  "contracts": {
+    "NodeVault": "{\"nodeId\":\"0.0.5\",\"transactionHash\":\"d4af0ad5796fc86f284e605113cc72b3fa9e6c00c803397b5e0d1bcc798b0f27fea32ec8b31bec677933a75e9c25c360\",\"transactionId\":\"0.0.6513741@1761938903.711607627\"}",
+    "AssetTokenization": "{\"nodeId\":\"0.0.4\",\"transactionHash\":\"65bbc82f148b45105d405c1144599aa8ed67fef539b8ac6578a1e8f7bcd5257608fc29c1451b1c078868d35ca1141bbe\",\"transactionId\":\"0.0.6513741@1761940893.142216240\"}"
+  }
+}

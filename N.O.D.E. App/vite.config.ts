@@ -15,4 +15,11 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    include: [
+      "@walletconnect/sign-client",
+      "@walletconnect/modal",
+    ],
+    force: true, // Force re-optimization
+  },
 }));

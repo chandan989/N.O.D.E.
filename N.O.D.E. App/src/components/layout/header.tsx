@@ -3,7 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import { useUserStore } from '@/stores/user-store';
 import { cn } from '@/lib/utils';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Power } from 'lucide-react';
+import { Menu, Power, Wallet } from 'lucide-react';
+import { WalletConnectModal } from '@/components/features/wallet-connect-modal';
 
 interface HeaderProps {
   isConnected: boolean;
@@ -11,6 +12,7 @@ interface HeaderProps {
   balance?: string;
   onConnect: () => void;
   onDisconnect: () => void;
+  walletType?: 'walletconnect';
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -18,16 +20,22 @@ export const Header: React.FC<HeaderProps> = ({
   accountId,
   balance,
   onConnect,
-  onDisconnect
+  onDisconnect,
+  walletType
 }) => {
   const { userType, setUserType } = useUserStore();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
 
 
   const handleSignOut = () => {
     onDisconnect();
     setUserType(null);
     setIsSheetOpen(false);
+  };
+
+  const handleConnectClick = () => {
+    setIsWalletModalOpen(true);
   };
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -79,7 +87,15 @@ export const Header: React.FC<HeaderProps> = ({
               <>
                 <div className="hidden sm:flex items-center gap-4">
                   <div className="text-right">
-                    <div className="text-xs sm:text-sm text-gray-500 truncate max-w-[100px] sm:max-w-none">{accountId}</div>
+                    <div className="text-xs sm:text-sm text-gray-500 truncate max-w-[100px] sm:max-w-none flex items-center gap-1">
+                      <Wallet className="w-3 h-3" />
+                      {accountId}
+                      {walletType && (
+                        <span className="text-xs bg-gray-200 px-1 rounded">
+                          WC
+                        </span>
+                      )}
+                    </div>
                     <div className="font-bold text-black">{balance} HBAR</div>
                   </div>
                   {userType && (
@@ -111,7 +127,15 @@ export const Header: React.FC<HeaderProps> = ({
                       </nav>
                       <div className="absolute bottom-6 left-6 right-6 border-t-2 border-black pt-6">
                         <div className="text-left mb-4">
-                          <div className="text-sm text-gray-500 truncate">{accountId}</div>
+                          <div className="text-sm text-gray-500 truncate flex items-center gap-1">
+                            <Wallet className="w-4 h-4" />
+                            {accountId}
+                            {walletType && (
+                              <span className="text-xs bg-gray-200 px-1 rounded">
+                                WalletConnect
+                              </span>
+                            )}
+                          </div>
                           <div className="font-bold text-black text-lg">{balance} HBAR</div>
                         </div>
                         <button onClick={handleSignOut} className="btn-pixel btn-pixel-primary w-full flex items-center justify-center gap-2 group">
@@ -124,11 +148,16 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               </>
             ) : (
-              <button onClick={onConnect} className="btn-pixel !py-2 !px-5">JOIN_NETWORK</button>
+              <button onClick={handleConnectClick} className="btn-pixel !py-2 !px-5">JOIN_NETWORK</button>
             )}
           </div>
         </div>
       </div>
+      
+      <WalletConnectModal 
+        isOpen={isWalletModalOpen} 
+        onClose={() => setIsWalletModalOpen(false)} 
+      />
     </header>
   );
 };
